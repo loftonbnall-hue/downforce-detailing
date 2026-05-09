@@ -1,0 +1,1489 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Downforce Detailing is a premium mobile car detailing company serving the St. Louis area."
+    />
+    <title>Downforce Detailing</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070b'/%3E%3Cpath d='M14 24h36l-7 8H21z' fill='%2320f4ff'/%3E%3Cpath d='M20 37h24l-5 6H15z' fill='%23ff8a2a'/%3E%3C/svg%3E"
+    />
+    <script>
+      tailwind = {
+        config: {
+          theme: {
+            extend: {
+              colors: {
+                asphalt: "#05070b",
+                carbon: "#09111d",
+                midnight: "#071b33",
+                cyanedge: "#20f4ff",
+                tealglow: "#11d7b2",
+                raceorange: "#ff8a2a"
+              },
+              fontFamily: {
+                display: ["Rajdhani", "Inter", "Arial", "sans-serif"],
+                body: ["Inter", "Arial", "sans-serif"]
+              },
+              boxShadow: {
+                glow: "0 0 38px rgba(32, 244, 255, .22)",
+                orange: "0 0 26px rgba(255, 138, 42, .18)"
+              }
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18",
+          "react-dom": "https://esm.sh/react-dom@18",
+          "react-dom/client": "https://esm.sh/react-dom@18/client",
+          "react/jsx-runtime": "https://esm.sh/react@18/jsx-runtime",
+          "framer-motion": "https://esm.sh/framer-motion@11?external=react,react-dom"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css?v=20260427b" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+import React, { useEffect, useMemo, useState } from "react";
+import { createRoot } from "react-dom/client";
+import { AnimatePresence, motion } from "framer-motion";
+
+const h = React.createElement;
+
+const glitchGlyphPatterns = {
+  A: ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+  B: ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+  C: ["01111", "10000", "10000", "10000", "10000", "10000", "01111"],
+  D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+  E: ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+  F: ["11111", "10000", "10000", "11110", "10000", "10000", "10000"],
+  G: ["01111", "10000", "10000", "10111", "10001", "10001", "01111"],
+  H: ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+  I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+  J: ["00111", "00010", "00010", "00010", "10010", "10010", "01100"],
+  K: ["10001", "10010", "10100", "11000", "10100", "10010", "10001"],
+  L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+  M: ["10001", "11011", "10101", "10101", "10001", "10001", "10001"],
+  N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
+  O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+  P: ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+  Q: ["01110", "10001", "10001", "10001", "10101", "10010", "01101"],
+  R: ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
+  S: ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
+  T: ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+  U: ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
+  V: ["10001", "10001", "10001", "10001", "01010", "01010", "00100"],
+  W: ["10001", "10001", "10001", "10101", "10101", "11011", "10001"],
+  X: ["10001", "01010", "01010", "00100", "01010", "01010", "10001"],
+  Y: ["10001", "01010", "00100", "00100", "00100", "00100", "00100"],
+  Z: ["11111", "00001", "00010", "00100", "01000", "10000", "11111"],
+  0: ["01110", "10001", "10011", "10101", "11001", "10001", "01110"],
+  1: ["00100", "01100", "00100", "00100", "00100", "00100", "01110"],
+  2: ["01110", "10001", "00001", "00010", "00100", "01000", "11111"],
+  3: ["11110", "00001", "00001", "01110", "00001", "00001", "11110"],
+  4: ["10010", "10010", "10010", "11111", "00010", "00010", "00010"],
+  5: ["11111", "10000", "10000", "11110", "00001", "00001", "11110"],
+  6: ["01110", "10000", "10000", "11110", "10001", "10001", "01110"],
+  7: ["11111", "00001", "00010", "00100", "01000", "01000", "01000"],
+  8: ["01110", "10001", "10001", "01110", "10001", "10001", "01110"],
+  9: ["01110", "10001", "10001", "01111", "00001", "00001", "01110"]
+};
+
+function glyphPieces(pattern) {
+  const cell = 10;
+  const gap = 1.4;
+  const slant = 5;
+  const pieces = [];
+  pattern.forEach((row, rowIndex) => {
+    row.split("").forEach((active, colIndex) => {
+      if (active !== "1") return;
+      const x = colIndex * (cell + gap) + rowIndex * 0.72;
+      const y = rowIndex * (cell + gap);
+      pieces.push(`${x + slant},${y} ${x + cell + slant},${y} ${x + cell},${y + cell} ${x},${y + cell}`);
+    });
+  });
+  return pieces;
+}
+
+const navItems = [
+  ["Home", "home"],
+  ["Gallery", "gallery"],
+  ["Why Us?", "why-us"],
+  ["Addons", "addons"],
+  ["Membership", "membership"]
+];
+
+const servicePages = [
+  {
+    slug: "exterior-wash-wax",
+    name: "Exterior Wash+Wax",
+    time: "1.5-2.5 hours",
+    price: "$35",
+    description: "A crisp exterior reset with a deep hand wash, wheel attention, gloss boost, and protective wax finish."
+  },
+  {
+    slug: "buff-polish-enhancement",
+    name: "Buff+Polish Enhancement",
+    time: "5-8 hours",
+    price: "$450",
+    description: "Paint refinement designed to restore depth, reduce light defects, and bring sharper reflections back to the finish."
+  },
+  {
+    slug: "interior-detail",
+    name: "Interior Detail",
+    time: "3-5 hours",
+    price: "$130",
+    description: "A premium cabin deep clean for seats, carpets, trim, vents, glass, and high-touch surfaces."
+  },
+  {
+    slug: "ceramic-coating",
+    name: "Ceramic Coating",
+    time: "1-2 days",
+    price: "$720",
+    description: "Long-lasting ceramic protection for deep gloss, hydrophobic behavior, and easier maintenance."
+  },
+  {
+    slug: "full-detail",
+    name: "Full Detail",
+    time: "5-9 hours",
+    price: "$200",
+    description: "The complete inside-and-out transformation for a vehicle that needs a serious showroom-level refresh."
+  }
+];
+
+const serviceVehicleOptions = {
+  "exterior-wash-wax": [
+    { label: "Coupe", price: "$35", note: "Exterior wash and wax" },
+    { label: "Sedan", price: "$40", note: "Exterior wash and wax" },
+    { label: "SUV", price: "$40", note: "Exterior wash and wax" },
+    { label: "Truck / Van", price: "$45", note: "Exterior wash and wax" },
+    { label: "Boat", price: "Quote", note: "Call or text for quote" }
+  ],
+  "buff-polish-enhancement": [
+    { label: "Coupe", price: "$400", note: "Paint enhancement" },
+    { label: "Sedan", price: "$450", note: "Paint enhancement" },
+    { label: "SUV", price: "$550", note: "Paint enhancement" },
+    { label: "Truck / Van", price: "$650", note: "Paint enhancement" },
+    { label: "Boat", price: "Quote", note: "Call or text for quote" }
+  ],
+  "interior-detail": [
+    { label: "Coupe", price: "$130", note: "Full interior detail" },
+    { label: "Sedan", price: "$140", note: "Full interior detail" },
+    { label: "Small SUV", price: "$150", note: "Interior detail" },
+    { label: "Large SUV", price: "$160", note: "Interior detail" },
+    { label: "Small Truck", price: "$150", note: "Interior detail" },
+    { label: "Large Truck", price: "$160", note: "Interior detail" },
+    { label: "Utility Truck / Van", price: "$180", note: "Interior detail" },
+    { label: "Boat", price: "Quote", note: "Call or text for quote" }
+  ],
+  "ceramic-coating": [
+    { label: "Coupe", price: "$720", note: "Ceramic coating" },
+    { label: "Sedan", price: "$720", note: "Ceramic coating" },
+    { label: "Small SUV", price: "$780", note: "Ceramic coating" },
+    { label: "Large SUV", price: "$820", note: "Ceramic coating" },
+    { label: "Large Truck", price: "$980", note: "Ceramic coating" },
+    { label: "Boat", price: "Quote", note: "Call or text for quote" }
+  ],
+  "full-detail": [
+    { label: "Coupe", price: "$200", note: "Complete inside and out" },
+    { label: "Sedan", price: "$200", note: "Complete inside and out" },
+    { label: "Small SUV", price: "$250", note: "Complete inside and out" },
+    { label: "Large SUV", price: "$300", note: "Complete inside and out" },
+    { label: "Large Truck", price: "$300", note: "Complete inside and out" },
+    { label: "Utility Truck / Van", price: "$350", note: "Complete inside and out" },
+    { label: "Boat", price: "Quote", note: "Call or text for quote" }
+  ]
+};
+
+const serviceShowcase = [
+  {
+    slug: "exterior-wash-wax",
+    name: "Exterior Wash+Wax",
+    time: "1.5-2.5 hours",
+    price: "$35",
+    description: "Deep-contact wash, gloss revival, and protective wax for a crisp exterior reset.",
+    image: "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?cs=srgb&dl=pexels-karola-g-4870707.jpg&fm=jpg",
+    accent: "from-cyanedge/30 via-cyanedge/6 to-transparent"
+  },
+  {
+    slug: "buff-polish-enhancement",
+    name: "Buff + Polish Enhancement",
+    time: "5-8 hours",
+    price: "$400",
+    description: "Paintwork enhancement that sharpens clarity, lifts gloss, and restores richer visual depth.",
+    image: "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?cs=srgb&dl=pexels-moonlightshotz-11139244.jpg&fm=jpg",
+    accent: "from-raceorange/32 via-raceorange/6 to-transparent"
+  },
+  {
+    slug: "interior-detail",
+    name: "Interior Detail",
+    time: "3-5 hours",
+    price: "$130",
+    description: "Precision interior work for trim, touchpoints, seats, carpets, and a noticeably cleaner cabin feel.",
+    image: "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872164.jpg&fm=jpg",
+    accent: "from-white/16 via-cyanedge/10 to-transparent"
+  },
+  {
+    slug: "ceramic-coating",
+    name: "Ceramic Coating",
+    time: "1-2 days",
+    price: "$720",
+    description: "Studio-grade protection with serious gloss, hydrophobic behavior, and long-term ease of maintenance.",
+    image: "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?cs=srgb&dl=pexels-hendra-yuwana-8803633-10463764.jpg&fm=jpg",
+    accent: "from-cyanedge/24 via-white/8 to-transparent"
+  },
+  {
+    slug: "full-detail",
+    name: "Full Detail",
+    time: "5-9 hours",
+    price: "$200",
+    description: "Our complete transformation package combining exterior refinement with a deep interior presentation reset.",
+    image: "https://images.pexels.com/photos/6872150/pexels-photo-6872150.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872150.jpg&fm=jpg",
+    accent: "from-raceorange/24 via-cyanedge/10 to-transparent"
+  }
+];
+
+const products = [
+  ["pH-neutral car shampoo", "Gentle foam that lifts road film while preserving wax, sealants, and ceramic protection."],
+  ["Microfiber towels", "Plush edgeless towels for drying, buffing, and interior touch points without adding swirls."],
+  ["Wheel and tire cleaner", "Strong brake-dust cleaning power for wheels, tires, barrels, and lower body grime."],
+  ["Spray sealant or ceramic topper", "Fast gloss and hydrophobic protection between full details or coating maintenance."],
+  ["Interior all-purpose cleaner", "A balanced cabin cleaner for plastics, vinyl, door panels, mats, and daily buildup."],
+  ["Soft detailing brushes", "Fine-bristle brushes for vents, badges, trim seams, wheel faces, and delicate interior areas."]
+];
+
+const heroBmwAfterImage = "./src/assets/bmw-m3-after.png";
+const heroBmwBeforeImage = "./src/assets/bmw-m3-before.png";
+const downforceLogoImage = "./src/assets/downforce-logo.png";
+const heroMarbleBackgroundImage = "./src/assets/hero-marble-bg.jpg";
+const heroSmokeBackgroundImage = "./src/assets/hero-smoke-bg.webp";
+
+const galleryWallColumns = [
+  [
+    "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwAfterImage,
+    "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872150/pexels-photo-6872150.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwBeforeImage
+  ],
+  [
+    "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwBeforeImage,
+    "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwAfterImage,
+    "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?auto=compress&cs=tinysrgb&w=900"
+  ],
+  [
+    heroBmwAfterImage,
+    "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872150/pexels-photo-6872150.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwBeforeImage,
+    "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?auto=compress&cs=tinysrgb&w=900"
+  ],
+  [
+    "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwBeforeImage,
+    "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?auto=compress&cs=tinysrgb&w=900",
+    heroBmwAfterImage,
+    "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?auto=compress&cs=tinysrgb&w=900",
+    "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?auto=compress&cs=tinysrgb&w=900"
+  ]
+];
+
+const trustPoints = [
+  ["Mobile Convenience", "Premium detailing brought directly to your driveway, garage, or jobsite."],
+  ["Paint-Safe Process", "Careful wash, refinement, and protection choices designed around presentation and preservation."],
+  ["Showroom Standards", "Interior reset, exterior gloss, and finishing details that feel intentionally high-end."]
+];
+
+const bookingSteps = [
+  ["Choose Service", "Start with the exact finish or correction level you want."],
+  ["Pick Vehicle", "Select the body style or add-on tier with clear pricing."],
+  ["Request Appointment", "Send your vehicle details and preferred timing in one pass."]
+];
+
+const servicePosterContent = {
+  "exterior-wash-wax": {
+    description: "A gloss-focused exterior reset that lifts surface grime, brightens the finish, and leaves behind a crisp protective layer.",
+    benefits: ["Hand wash and wheel attention", "Gloss-enhancing wax finish", "Cleaner, brighter exterior presentation"],
+    thumbnails: [
+      "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?cs=srgb&dl=pexels-karola-g-4870707.jpg&fm=jpg",
+      "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?cs=srgb&dl=pexels-victoria-ouarets-3535985-5288711.jpg&fm=jpg",
+      "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?cs=srgb&dl=pexels-autorecords-6872580.jpg&fm=jpg"
+    ]
+  },
+  "interior-detail": {
+    description: "A deep interior reset that restores calm, cleanliness, and a more refined feel across the cabin.",
+    benefits: ["Seats, trim, carpets, and vents", "Freshened cabin presentation", "Cleaner touchpoints throughout"],
+    thumbnails: [
+      "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872164.jpg&fm=jpg",
+      "https://images.pexels.com/photos/6872150/pexels-photo-6872150.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872150.jpg&fm=jpg",
+      "https://images.pexels.com/photos/5288711/pexels-photo-5288711.jpeg?cs=srgb&dl=pexels-victoria-ouarets-3535985-5288711.jpg&fm=jpg"
+    ]
+  },
+  "full-detail": {
+    description: "A complete inside-and-out transformation combining deep-clean presentation with an exterior finish that feels properly reset.",
+    benefits: ["Exterior wash and refinement", "Interior deep-clean presentation", "Best all-around showroom-style package"],
+    thumbnails: [
+      "https://images.pexels.com/photos/6872150/pexels-photo-6872150.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872150.jpg&fm=jpg",
+      "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?cs=srgb&dl=pexels-karola-g-4870707.jpg&fm=jpg",
+      "https://images.pexels.com/photos/6872164/pexels-photo-6872164.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6872164.jpg&fm=jpg"
+    ]
+  },
+  "buff-polish-enhancement": {
+    description: "A paint enhancement service built to sharpen reflections, lift gloss, and bring richer depth back into the finish.",
+    benefits: ["Improved paint clarity", "Sharper gloss and reflections", "Great prep before premium protection"],
+    thumbnails: [
+      "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?cs=srgb&dl=pexels-moonlightshotz-11139244.jpg&fm=jpg",
+      "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?cs=srgb&dl=pexels-hendra-yuwana-8803633-10463764.jpg&fm=jpg",
+      "https://images.pexels.com/photos/4870707/pexels-photo-4870707.jpeg?cs=srgb&dl=pexels-karola-g-4870707.jpg&fm=jpg"
+    ]
+  },
+  "ceramic-coating": {
+    description: "Long-term gloss and paint protection with hydrophobic behavior that keeps the finish sharper and easier to maintain.",
+    benefits: ["Durable premium protection", "High-gloss coated finish", "Water-beading surface behavior"],
+    thumbnails: [
+      "https://images.pexels.com/photos/10463764/pexels-photo-10463764.jpeg?cs=srgb&dl=pexels-hendra-yuwana-8803633-10463764.jpg&fm=jpg",
+      "https://images.pexels.com/photos/11139244/pexels-photo-11139244.jpeg?cs=srgb&dl=pexels-moonlightshotz-11139244.jpg&fm=jpg",
+      "https://images.pexels.com/photos/6872580/pexels-photo-6872580.jpeg?cs=srgb&dl=pexels-autorecords-6872580.jpg&fm=jpg"
+    ]
+  }
+};
+
+const addOnOptions = [
+  { label: "Odor Treatment", price: "$45", note: "Cabin refresh add-on" },
+  { label: "Engine Bay Cleaning", price: "$40", note: "Engine bay detail" },
+  { label: "Pet Hair Removal", price: "$50", note: "Interior add-on" },
+  { label: "Stain Removal", price: "$60", note: "Spot treatment add-on" },
+  { label: "Power Washing", price: "Quote", note: "Call or text for quote" }
+];
+
+const serviceAddOnAvailability = {
+  "exterior-wash-wax": ["Engine Bay Cleaning", "Power Washing"],
+  "interior-detail": ["Odor Treatment", "Pet Hair Removal", "Stain Removal"],
+  "full-detail": ["Odor Treatment", "Engine Bay Cleaning", "Pet Hair Removal", "Stain Removal", "Power Washing"]
+};
+
+function go(page) {
+  window.location.hash = page;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goTo(page, params = {}) {
+  const query = new URLSearchParams(params).toString();
+  window.location.hash = query ? `${page}?${query}` : page;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function parseRoute(hashValue) {
+  const cleaned = (hashValue || "#home").replace(/^#/, "") || "home";
+  const [page, query = ""] = cleaned.split("?");
+  return {
+    page: page || "home",
+    params: Object.fromEntries(new URLSearchParams(query))
+  };
+}
+
+function goToServices() {
+  goTo("home", { focus: "services" });
+}
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() => window.innerWidth < 768);
+
+  useEffect(() => {
+    const onResize = () => setMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return mobile;
+}
+
+function Logo({ large = false }) {
+  return h(
+    "button",
+    {
+      onClick: () => go("home"),
+      className: `group block text-left ${large ? "scale-100" : ""}`,
+      "aria-label": "Downforce Detailing home"
+    },
+    h("img", {
+      src: downforceLogoImage,
+      alt: "Downforce Detailing logo",
+      className: large
+        ? "h-auto w-[16rem] drop-shadow-[0_0_24px_rgba(32,244,255,.18)] md:w-[22rem]"
+        : "h-auto w-[9.5rem] drop-shadow-[0_0_18px_rgba(32,244,255,.16)] md:w-[11rem]"
+    })
+  );
+}
+
+function CyberGlyph({ char, layer = "base" }) {
+  const pattern = glitchGlyphPatterns[char];
+  if (!pattern) {
+    return h("span", { className: "glitch-fallback-char" }, char);
+  }
+
+  const pieces = glyphPieces(pattern);
+  return h("svg", {
+    className: `glitch-glyph-svg glitch-glyph-${layer}`,
+    viewBox: "0 0 66 82",
+    preserveAspectRatio: "xMidYMid meet",
+    "aria-hidden": true
+  },
+    pieces.map((points, index) => h("polygon", { key: index, points })),
+    h("polygon", { className: "glitch-glyph-cut", points: "48,4 54,4 18,82 12,82" }),
+    h("polygon", { className: "glitch-glyph-streak", points: "0,34 60,29 60,34 0,39" })
+  );
+}
+
+function GlitchText({ text, size = "hero", intensity = 1, animated = true, className = "" }) {
+  const cleanText = String(text || "").toUpperCase();
+  return h("span", {
+    className: `glitch-text glitch-text-${size} sytl-reference-text ${className}`,
+    style: { "--glow-strength": intensity },
+    "aria-label": cleanText
+  },
+    h("span", { className: "sytl-layer sytl-layer-base", "aria-hidden": true }, cleanText)
+  );
+}
+
+function Button({ children, onClick, variant = "primary" }) {
+  const style =
+    variant === "primary"
+      ? "border-cyanedge/70 bg-cyanedge text-asphalt shadow-glow hover:bg-white"
+      : "border-raceorange/70 bg-white/5 text-white shadow-orange hover:border-cyanedge hover:text-cyanedge";
+  return h(
+    "button",
+    {
+      onClick,
+      className: `rounded-full border px-6 py-3 text-sm font-black uppercase tracking-[0.16em] transition ${style}`
+    },
+    children
+  );
+}
+
+function BeforeAfterSlider() {
+  const [position, setPosition] = useState(58);
+
+  return h(
+    "div",
+    { className: "glass-panel relative overflow-hidden rounded-[1.8rem] p-4 md:p-5" },
+    h("div", { className: "relative aspect-[4/3] overflow-hidden rounded-[1.25rem] border border-white/10 bg-black" },
+      h("img", {
+        src: heroBmwBeforeImage,
+        alt: "Dirty BMW M3 Competition before detailing",
+        className: "absolute inset-0 h-full w-full object-contain object-center"
+      }),
+      h("div", {
+        className: "absolute inset-0 overflow-hidden",
+        style: { clipPath: `inset(0 0 0 ${position}%)` }
+      },
+        h("img", {
+          src: heroBmwAfterImage,
+          alt: "Clean BMW M3 Competition after detailing",
+          className: "h-full w-full object-contain object-center"
+        })
+      ),
+      h("div", { className: "absolute inset-y-0 z-10 w-[3px] bg-white/90 shadow-[0_0_28px_rgba(255,255,255,.45)]", style: { left: `${position}%` } }),
+      h("div", { className: "absolute top-4 left-4 z-10 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-raceorange" }, "Before"),
+      h("div", { className: "absolute top-4 right-4 z-10 rounded-full border border-cyanedge/35 bg-black/45 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyanedge" }, "After")
+    ),
+    h("div", { className: "mt-5" },
+      h("input", {
+        type: "range",
+        min: "0",
+        max: "100",
+        value: position,
+        onInput: (event) => setPosition(Number(event.target.value)),
+        onChange: (event) => setPosition(Number(event.target.value)),
+        className: "before-after-range w-full"
+      })
+    )
+  );
+}
+
+function GarageIntro() {
+  return h(
+    motion.div,
+    {
+      className: "fixed inset-0 z-50 grid place-items-center overflow-hidden bg-asphalt",
+      initial: { opacity: 1 },
+      animate: { opacity: 0, pointerEvents: "none" },
+      transition: { delay: 2.65, duration: 0.75 }
+    },
+    h("div", { className: "absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,244,255,.18),transparent_32rem)]" }),
+    h(
+      motion.div,
+      {
+        className: "garage-slats absolute inset-x-0 top-0 h-full border-b-4 border-cyanedge shadow-glow",
+        initial: { y: 0, scaleY: 1 },
+        animate: { y: "-104%", scaleY: 0.18 },
+        transition: { delay: 0.55, duration: 1.85, ease: [0.76, 0, 0.24, 1] },
+        style: { transformOrigin: "top center" }
+      },
+      h("div", { className: "absolute inset-x-0 top-10 h-10 bg-gradient-to-b from-white/12 to-transparent" }),
+      h(
+        "div",
+        { className: "absolute inset-0 grid place-items-center px-6" },
+        h("div", { className: "rounded-3xl border border-cyanedge/35 bg-black/35 p-7 shadow-glow backdrop-blur" }, h(Logo, { large: true }))
+      )
+    ),
+    h(motion.div, {
+      className: "absolute bottom-0 h-2 w-full bg-cyanedge shadow-glow",
+      initial: { scaleX: 0 },
+      animate: { scaleX: 1 },
+      transition: { duration: 0.7, ease: "easeOut" }
+    })
+  );
+}
+
+function Header({ page }) {
+  return h(
+    "header",
+    { className: "site-header sticky top-0 z-40" },
+    h("div", { className: "mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-3 sm:px-6 lg:px-8" },
+      h(Logo),
+      h(NavLinks, { page, className: "hidden items-center gap-2 md:flex" })
+    ),
+    h("div", { className: "border-t border-white/8 px-4 pb-3 md:hidden" },
+      h(NavLinks, { page, className: "flex gap-2 overflow-x-auto pt-3" })
+    )
+  );
+}
+
+function SummerSaleBar() {
+  const saleEndsAt = useMemo(() => new Date("2026-06-02T23:59:59-05:00").getTime(), []);
+  const [remaining, setRemaining] = useState(() => Math.max(0, saleEndsAt - Date.now()));
+
+  useEffect(() => {
+    const tick = () => setRemaining(Math.max(0, saleEndsAt - Date.now()));
+    tick();
+    const timer = window.setInterval(tick, 1000);
+    return () => window.clearInterval(timer);
+  }, [saleEndsAt]);
+
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+  const timeParts = [
+    ["Days", days],
+    ["Hours", hours],
+    ["Min", minutes],
+    ["Sec", seconds]
+  ];
+
+  return h("section", { className: "summer-sale-bar sticky top-[4.55rem] z-30 px-3 py-2 md:top-[4.85rem]" },
+    h("div", { className: "flex w-full flex-row items-center justify-between gap-2 px-3 py-1 sm:px-6" },
+      h("div", { className: "flex min-w-0 flex-col items-start gap-1 text-left" },
+        h("p", { className: "font-display text-sm font-black uppercase leading-none tracking-normal text-white sm:text-base" }, "Summer Sale Starts Soon"),
+        h("p", { className: "text-[0.5rem] font-black uppercase leading-none tracking-[0.18em] text-raceorange sm:text-[0.56rem]" }, "30% off any service")
+      ),
+      h("div", { className: "flex items-center gap-1.5 sm:gap-2" },
+        timeParts.map(([label, value]) =>
+          h("div", { key: label, className: "summer-countdown-cell" },
+            h("span", { className: "font-display text-sm font-black leading-none text-white sm:text-base" }, String(value).padStart(2, "0")),
+            h("span", { className: "text-[0.46rem] font-black uppercase tracking-[0.12em] text-cyanedge sm:text-[0.5rem]" }, label)
+          )
+        )
+      )
+    )
+  );
+}
+
+function NavLinks({ page, className }) {
+  const [open, setOpen] = useState(false);
+  const servicesActive = page.startsWith("service/");
+  const standardNavItems = navItems.filter(([, target]) => target !== "home" && target !== "membership");
+  const membershipItem = navItems.find(([, target]) => target === "membership");
+
+  useEffect(() => {
+    setOpen(false);
+  }, [page]);
+
+  return h("nav", { className },
+    h("button", {
+      type: "button",
+      onClick: () => go("home"),
+      className: `nav-tab ${page === "home" ? "nav-tab-active" : ""}`
+    }, "Home"),
+    h("div", { className: "relative shrink-0" },
+      h("button", {
+        type: "button",
+        onClick: () => setOpen((value) => !value),
+        className: `nav-tab nav-tab-services ${servicesActive ? "nav-tab-active" : ""}`
+      },
+        "Services",
+        h("svg", {
+          viewBox: "0 0 12 12",
+          fill: "none",
+          stroke: "currentColor",
+          strokeWidth: "1.8",
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          className: `h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`
+        }, h("path", { d: "M2 4.5 6 8l4-3.5" }))
+      ),
+      open
+        ? h("div", { className: "steampunk-menu absolute left-0 top-full z-50 mt-3 min-w-[17rem] p-2" },
+            servicePages.map((item) =>
+              h("button", {
+                key: item.slug,
+                type: "button",
+                onClick: () => {
+                  setOpen(false);
+                  goTo(`service/${item.slug}`);
+                },
+                className: `steampunk-menu-item ${page === `service/${item.slug}` ? "steampunk-menu-item-active" : ""}`
+              }, item.name)
+            )
+          )
+        : null
+    ),
+    standardNavItems.map(([label, target]) =>
+      h("button", {
+        key: target,
+        type: "button",
+        onClick: () => go(target),
+        className: `nav-tab ${page === target ? "nav-tab-active" : ""}`
+      }, label)
+    ),
+    membershipItem
+      ? h("button", {
+          key: membershipItem[1],
+          type: "button",
+          onClick: () => go(membershipItem[1]),
+          className: `nav-tab nav-tab-membership ${page === membershipItem[1] ? "nav-tab-active" : ""}`
+        }, membershipItem[0])
+      : null
+  );
+}
+
+function Section({ children, className = "" }) {
+  return h("section", { className: `w-full px-4 py-20 sm:px-6 lg:px-8 ${className}` }, h("div", { className: "mx-auto max-w-7xl" }, children));
+}
+
+function Hero() {
+  return h(
+    Section,
+    { className: "relative isolate overflow-hidden pt-10 pb-14 md:pt-16 md:pb-20" },
+    h("div", { className: "hero-gallery-backdrop absolute inset-0 z-0" },
+      h("div", { className: "hero-gallery-grid gallery-wall-grid grid h-full gap-3" },
+        galleryWallColumns.map((images, columnIndex) => {
+          const direction = columnIndex % 2 === 0 ? "up" : "down";
+          return h("div", { key: `hero-gallery-column-${columnIndex}`, className: "gallery-wall-column" },
+            h("div", {
+              className: `gallery-wall-track gallery-wall-track-${direction}`,
+              style: { "--gallery-duration": `${42 + columnIndex * 3}s` }
+            },
+              [...images, ...images].map((src, imageIndex) =>
+                h("figure", { key: `hero-${columnIndex}-${imageIndex}`, className: "gallery-wall-card" },
+                  h("img", {
+                    src,
+                    alt: "Premium automotive detailing work",
+                    loading: imageIndex < 4 ? "eager" : "lazy",
+                    decoding: "async"
+                  })
+                )
+              )
+            )
+          );
+        })
+      )
+    ),
+    h("div", { className: "absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(0,0,0,.26),rgba(0,0,0,.04)_44%,rgba(0,0,0,.16)),linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.12))]" }),
+    h(
+      "div",
+      { className: "relative z-10 grid min-h-[min(78vh,820px)] items-center gap-12 lg:grid-cols-[1.08fr_.92fr]" },
+      h(
+        motion.div,
+        { className: "max-w-4xl", initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { delay: 2.9, duration: 0.65 } },
+        h("div", { className: "hero-logo-panel mb-6 inline-flex p-4 md:p-5" }, h(Logo, { large: true })),
+        h("div", { className: "hero-copy-panel rounded-[1.8rem] p-6 md:p-8" },
+          h("p", { className: "mb-4 text-xs font-black uppercase tracking-[0.34em] text-raceorange" }, "Mobile detailing | St. Louis"),
+          h("h1", { className: "max-w-4xl leading-none" }, h(GlitchText, { text: "From Dirty To Showroom Shine", size: "hero", intensity: 1.25 })),
+          h("p", { className: "mt-7 max-w-2xl text-xl font-semibold text-slate-100" }, "We don't just clean, we perfect."),
+          h(
+            "div",
+            { className: "mt-9 flex flex-col gap-4 sm:flex-row" },
+            h(Button, { onClick: () => goToServices() }, "Book an Appointment"),
+            h(Button, { onClick: () => goTo("gallery"), variant: "secondary" }, "View Gallery")
+          )
+        )
+      ),
+      h(
+        motion.div,
+        { className: "glass-panel neon-line rounded-2xl p-5", initial: { opacity: 0, x: 34 }, animate: { opacity: 1, x: 0 }, transition: { delay: 3.05, duration: 0.75 } },
+        h(BeforeAfterSlider)
+      )
+    )
+  );
+}
+
+function TrustBandSection() {
+  return h(
+    Section,
+    { className: "relative py-12" },
+    h("div", { className: "glass-panel rounded-[1.7rem] px-6 py-8 md:px-8 md:py-10" },
+      h("div", { className: "grid gap-8 lg:grid-cols-[0.85fr_1.15fr]" },
+        h("div", null,
+          h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-raceorange" }, "Trusted Partner"),
+          h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Care That Feels Personal", size: "section", intensity: 0.9 })),
+          h("p", { className: "mt-4 max-w-xl text-base leading-7 text-slate-300" }, "Your vehicle matters to you, and that deserves real care. Whether it needs a simple refresh or a full reset, you should feel taken care of from the moment you book to the moment you see the finished result."),
+          h("p", { className: "mt-4 max-w-xl text-base leading-7 text-slate-300" }, "We serve St. Louis with premium mobile detailing built around exterior restoration, interior deep cleaning, paint refinement, ceramic protection, and vehicle presentation that feels polished without making the process complicated.")
+        ),
+        h("div", { className: "grid gap-4 md:grid-cols-3" },
+          trustPoints.map(([title, copy]) =>
+            h("article", { key: title, className: "rounded-2xl border border-white/10 bg-white/[0.03] p-5" },
+              h("p", { className: "text-xs font-black uppercase tracking-[0.24em] text-cyanedge" }, title),
+              h("p", { className: "mt-3 text-sm leading-6 text-slate-300" }, copy)
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function AnimatedGalleryWallSection() {
+  return h(
+    "section",
+    { className: "animated-gallery-section relative w-full overflow-hidden px-3 py-16 sm:px-4 md:py-20" },
+    h("div", { className: "pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(32,244,255,.12),transparent_28rem),radial-gradient(circle_at_82%_62%,rgba(255,138,42,.08),transparent_22rem)]" }),
+    h("div", { className: "gallery-wall-grid relative z-10 grid gap-3 md:grid-cols-2 xl:grid-cols-4" },
+      galleryWallColumns.map((images, columnIndex) => {
+        const direction = columnIndex % 2 === 0 ? "up" : "down";
+        return h("div", { key: `gallery-column-${columnIndex}`, className: "gallery-wall-column" },
+          h("div", {
+            className: `gallery-wall-track gallery-wall-track-${direction}`,
+            style: { "--gallery-duration": `${42 + columnIndex * 3}s` }
+          },
+            [...images, ...images].map((src, imageIndex) =>
+              h("figure", { key: `${columnIndex}-${imageIndex}`, className: "gallery-wall-card" },
+                h("img", {
+                  src,
+                  alt: "Premium automotive detailing work",
+                  loading: imageIndex < 4 ? "eager" : "lazy",
+                  decoding: "async"
+                })
+              )
+            )
+          )
+        );
+      })
+    )
+  );
+}
+
+function ServiceShowcaseSection() {
+  const isMobile = useIsMobile();
+  const [active, setActive] = useState(null);
+
+  return h(
+    Section,
+    { className: "relative overflow-hidden bg-[radial-gradient(circle_at_50%_18%,rgba(32,244,255,.12),transparent_18rem),radial-gradient(circle_at_50%_110%,rgba(255,138,42,.08),transparent_24rem),linear-gradient(180deg,rgba(0,0,0,.24),rgba(2,4,9,.94))]" },
+    h("div", { className: "absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,.66),transparent_30%,transparent_70%,rgba(0,0,0,.66))]" }),
+    h("div", { className: "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,transparent_24%,rgba(0,0,0,.58)_100%)]" }),
+    h("div", { id: "services-showcase", className: "glass-panel rounded-[2rem] p-5 md:p-8" },
+      h("div", { className: "mx-auto mb-10 max-w-3xl text-center" },
+        h("h2", { className: "leading-none" }, h(GlitchText, { text: "Services", size: "section", intensity: 1.05 }))
+      ),
+      h("div", {
+        className: "relative mx-auto flex max-w-[1500px] flex-col gap-4 md:min-h-[42rem] md:flex-row md:items-stretch md:justify-center",
+        onMouseLeave: () => !isMobile && setActive(null)
+      },
+        serviceShowcase.map((service, index) => {
+          const isActive = active === service.slug;
+          const tilt = isMobile ? 0 : index < 3 ? -6 + index * 2.2 : 6 - (serviceShowcase.length - 1 - index) * 2.2;
+          const flexValue = isMobile ? "1 1 auto" : `${isActive ? 1.42 : 0.9} 1 0%`;
+
+          return h(
+            motion.article,
+            {
+              key: service.slug,
+              onMouseEnter: () => !isMobile && setActive(service.slug),
+              onFocus: () => setActive(service.slug),
+              onBlur: () => !isMobile && setActive(null),
+              onClick: () => {
+                if (isMobile && active !== service.slug) {
+                  setActive(service.slug);
+                  return;
+                }
+                goTo(`service/${service.slug}`);
+              },
+              initial: { opacity: 0, y: 32 },
+              animate: {
+                opacity: isActive ? 1 : 0.66,
+                scale: isActive ? 1.018 : 0.965,
+                flex: flexValue
+              },
+              whileHover: isMobile ? undefined : { y: -10 },
+              transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+              className: "group relative min-h-[22rem] cursor-pointer overflow-hidden rounded-[1.35rem] border border-cyanedge/25 bg-black/70 shadow-[0_28px_70px_rgba(0,0,0,.42)] md:min-h-[34rem]",
+              style: {
+                transform: isMobile ? "none" : `perspective(1400px) rotateY(${tilt}deg)`,
+                transformStyle: "preserve-3d"
+              }
+            },
+            h(motion.div, {
+              className: "absolute inset-0 bg-cover bg-center",
+              style: { backgroundImage: `url(${service.image})` },
+              animate: { scale: isActive ? 1.09 : 1.01, filter: isActive ? "brightness(0.98)" : "brightness(0.58)" },
+              transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
+            }),
+            h("div", { className: "absolute inset-0 bg-gradient-to-t from-black via-black/58 to-transparent" }),
+            h("div", { className: `absolute inset-0 bg-gradient-to-br ${service.accent}` }),
+            h("div", { className: `absolute inset-0 rounded-[1.35rem] ${isActive ? "shadow-[inset_0_0_0_1px_rgba(32,244,255,.75),0_0_42px_rgba(32,244,255,.18)]" : "shadow-[inset_0_0_0_1px_rgba(255,255,255,.08)]"}` }),
+            h("div", { className: "absolute inset-x-0 bottom-0 p-5 md:p-6" },
+              h("p", { className: "text-[10px] font-black uppercase tracking-[0.28em] text-cyanedge/90" }, `${service.time} | Starting at ${service.price}`),
+              h("h3", { className: "mt-3 leading-none" },
+                h(GlitchText, {
+                  text: service.name,
+                  size: "card",
+                  intensity: 0.72,
+                  animated: false,
+                  className: isActive ? "service-card-title-active" : "service-card-title-idle"
+                })
+              ),
+              h(motion.div, {
+                initial: false,
+                animate: { opacity: isActive ? 1 : 0, y: isActive ? 0 : 12, height: isActive ? "auto" : 0 },
+                transition: { duration: 0.22 }
+              },
+                h("p", { className: "mt-4 max-w-xs text-sm leading-6 text-slate-200" }, service.description),
+                h("p", { className: "mt-4 text-xs font-black uppercase tracking-[0.28em] text-raceorange" }, isMobile ? "Tap again to book" : "View Service")
+              )
+            )
+          );
+        })
+      )
+    )
+  );
+}
+
+function BookingFlowSection() {
+  return h(
+    Section,
+    { className: "relative py-14" },
+    h("div", { className: "grid gap-8" },
+      h("div", { className: "glass-panel rounded-[1.7rem] p-8 md:p-10" },
+        h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, "Booking Flow"),
+        h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Cleaner From Scroll To Request", size: "section", intensity: 0.92 })),
+        h("p", { className: "mt-4 max-w-2xl text-base leading-7 text-slate-300" }, "The site now moves in a straight line: hero, services, vehicle pricing, then request details. No detours, no guessing where pricing lives, and no visual clutter fighting the booking decision."),
+        h("div", { className: "mt-8 grid gap-4 md:grid-cols-3" },
+          bookingSteps.map(([title, copy], index) =>
+            h("article", { key: title, className: "rounded-2xl border border-white/10 bg-black/20 p-5" },
+              h("p", { className: "text-[10px] font-black uppercase tracking-[0.3em] text-raceorange" }, `0${index + 1}`),
+              h("h3", { className: "mt-3 font-display text-2xl font-black uppercase text-white" }, title),
+              h("p", { className: "mt-3 text-sm leading-6 text-slate-300" }, copy)
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function MapsSection() {
+  return h(
+    Section,
+    { className: "relative py-10" },
+    h("div", { className: "glass-panel rounded-[1.7rem] px-6 py-8 md:px-8 md:py-10" },
+      h("div", { className: "flex flex-col gap-8" },
+        h("div", null,
+          h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-raceorange" }, "Service Area"),
+          h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Find Us On Google Maps", size: "section", intensity: 0.9 })),
+          h("p", { className: "mt-4 max-w-2xl text-base leading-7 text-slate-300" }, "Downforce Detailing proudly serves the St. Louis area with premium mobile detailing. Use the live map below to explore the area without leaving the site.")
+        ),
+        h("div", { className: "overflow-hidden rounded-[1.5rem] border border-cyanedge/25 bg-black/40 shadow-[0_18px_48px_rgba(0,0,0,.32)]" },
+          h("iframe", {
+            title: "Downforce Detailing service area map",
+            src: "https://www.google.com/maps?q=St.%20Louis%2C%20MO&z=10&output=embed",
+            className: "h-[24rem] w-full md:h-[30rem]",
+            style: { border: 0 },
+            loading: "lazy",
+            referrerPolicy: "no-referrer-when-downgrade",
+            allowFullScreen: true
+          })
+        )
+      )
+    )
+  );
+}
+
+function HomePage({ focusServices = false }) {
+  useEffect(() => {
+    if (!focusServices) return;
+    const timer = window.setTimeout(() => {
+      const section = document.getElementById("services-showcase");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, [focusServices]);
+
+  return h(
+    "main",
+    { className: "home-page" },
+    h(Hero),
+    h(TrustBandSection),
+    h(ServiceShowcaseSection),
+    h(BookingFlowSection),
+    h(MapsSection)
+  );
+}
+
+function BookingPage({ selectedService }) {
+  return h(PageShell, { eyebrow: "Appointments", title: "Book an Appointment", intro: "Choose your service from the homepage or the Services menu, then select your vehicle on that service page." },
+    h("div", { className: "glass-panel max-w-3xl rounded-[1.8rem] p-8 md:p-10" },
+      h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, "Service-First Booking"),
+      h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Start With The Package", size: "section", intensity: 0.85 })),
+      h("p", { className: "mt-4 max-w-2xl text-base leading-7 text-slate-300" }, "To keep the flow cleaner, service selection now lives only in the homepage showcase and the header Services menu. Once you open a service page, you can pick the vehicle type and send your request there."),
+      selectedService ? h("p", { className: "mt-5 text-sm font-bold uppercase tracking-[0.18em] text-raceorange" }, `Previously selected: ${selectedService.replaceAll("-", " ")}`) : null,
+      h("div", { className: "mt-8" }, h(Button, { onClick: () => goToServices() }, "Browse Services"))
+    )
+  );
+}
+
+function ServiceRequestPage({ service }) {
+  const activeService = servicePages.find((item) => item.slug === service.slug) || servicePages[0];
+  const activeShowcase = serviceShowcase.find((item) => item.slug === service.slug) || serviceShowcase[0];
+  const posterContent = servicePosterContent[service.slug] || { description: activeService.description, benefits: [], thumbnails: [activeShowcase.image] };
+  const options = serviceVehicleOptions[service.slug] || [];
+  const availableAddOns = addOnOptions.filter((item) => (serviceAddOnAvailability[service.slug] || []).includes(item.label));
+  const [selectedOption, setSelectedOption] = useState(options[0]?.label || "");
+  const [selectedAddOns, setSelectedAddOns] = useState([]);
+  const fields = ["Name", "Email", "Car Brand", "Make", "Model", "Year"];
+
+  useEffect(() => {
+    if (options.length && !options.some((option) => option.label === selectedOption)) {
+      setSelectedOption(options[0].label);
+    }
+  }, [options, selectedOption]);
+
+  useEffect(() => {
+    setSelectedAddOns((current) => current.filter((label) => availableAddOns.some((item) => item.label === label)));
+  }, [availableAddOns]);
+
+  useEffect(() => {
+    if (!selectedOption) return;
+    const timer = window.setTimeout(() => {
+      const form = document.getElementById("service-request-form");
+      if (form) {
+        form.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 160);
+
+    return () => window.clearTimeout(timer);
+  }, [selectedOption, service.slug]);
+
+  const activeOption = options.find((option) => option.label === selectedOption) || options[0];
+  const pricingHeading = `${activeService.name.toUpperCase()} PRICING`;
+  const selectedAddOnText = selectedAddOns.length ? selectedAddOns.join(", ") : "None selected";
+
+  const addOnSection = availableAddOns.length
+    ? h("div", { className: "rounded-[1.75rem] border border-white/10 bg-black/25 p-6 md:p-7" },
+        h("div", { className: "flex items-end justify-between gap-4" },
+          h("div", null,
+            h("p", { className: "font-body text-xs font-bold uppercase tracking-[0.34em] text-raceorange" }, "Optional Add-Ons"),
+            h("p", { className: "mt-2 max-w-xl font-body text-sm leading-6 text-slate-300" }, "Add one or more finishing upgrades to this service before sending your request.")
+          ),
+          h("p", { className: "hidden font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-cyanedge md:block" }, `${selectedAddOns.length} selected`)
+        ),
+        h("div", { className: "mt-4 grid gap-3 md:grid-cols-2" },
+          availableAddOns.map((item) => {
+            const selected = selectedAddOns.includes(item.label);
+            return h("button", {
+              key: `${service.slug}-${item.label}-addon`,
+              type: "button",
+              onClick: () => setSelectedAddOns((current) => current.includes(item.label) ? current.filter((label) => label !== item.label) : [...current, item.label]),
+              className: `rounded-[1.25rem] border px-4 py-4 text-left transition ${
+                selected
+                  ? "border-cyanedge bg-cyanedge/10 shadow-[0_0_24px_rgba(32,244,255,.14)]"
+                  : "border-white/10 bg-white/[0.03] hover:border-cyanedge/35"
+              }`
+            },
+              h("div", { className: "flex items-start justify-between gap-3" },
+                h("div", null,
+                  h("p", { className: "font-display text-2xl uppercase leading-none text-white" }, item.label),
+                  h("p", { className: "mt-2 font-body text-xs uppercase tracking-[0.16em] text-slate-400" }, item.note)
+                ),
+                h("p", { className: "font-display text-3xl uppercase leading-none text-raceorange" }, item.price)
+              )
+            );
+          })
+        )
+      )
+    : null;
+
+  return h("main", null,
+    h(Section, { className: "relative min-h-[100vh] overflow-hidden py-8 md:py-12" },
+      h("div", { className: "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_14%,rgba(32,244,255,.16),transparent_18rem),radial-gradient(circle_at_82%_22%,rgba(31,92,163,.24),transparent_24rem),radial-gradient(circle_at_14%_82%,rgba(255,138,42,.08),transparent_18rem),linear-gradient(180deg,#02050b,#060b13_54%,#03060b)]" }),
+      h("div", { className: "absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(255,255,255,.03),transparent_24%,transparent_74%,rgba(255,255,255,.02))]" }),
+      h("div", { className: "mx-auto max-w-7xl" },
+        h("div", { className: "glass-panel relative overflow-hidden rounded-[2rem] px-4 py-5 md:px-7 md:py-7" },
+          h("div", { className: "absolute inset-0 bg-[radial-gradient(circle_at_28%_22%,rgba(32,244,255,.12),transparent_22%),radial-gradient(circle_at_84%_18%,rgba(255,138,42,.07),transparent_16%)]" }),
+          h("div", { className: "relative z-10 flex flex-col gap-5" },
+            h("div", { className: "flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between" },
+              h("div", null,
+                h("p", { className: "font-body text-[0.65rem] font-bold uppercase tracking-[0.34em] text-cyanedge md:text-xs" }, "Selected Service Category"),
+                h("h1", { className: "mt-2 leading-none" }, h(GlitchText, { text: activeService.name, size: "section", intensity: 1 })),
+                h("p", { className: "mt-2 font-body text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-raceorange md:text-sm" }, "Precision. Protection. Perfection.")
+              ),
+              h("div", { className: "rounded-[1.2rem] border border-white/10 bg-black/28 px-4 py-3 backdrop-blur-md" }, h(Logo))
+            ),
+            h("div", { className: "grid gap-5 xl:grid-cols-[1.08fr_0.92fr]" },
+              h("div", { className: "relative min-h-[41rem] overflow-hidden rounded-[1.75rem] border border-white/10 bg-black/35 px-4 py-5 md:min-h-[50rem] md:px-6" },
+                h("div", { className: "relative z-20 mb-4 grid grid-cols-3 gap-3 md:mb-5" },
+                  posterContent.thumbnails.slice(0, 3).map((thumb, index) =>
+                    h("div", { key: `${service.slug}-${index}`, className: "h-28 overflow-hidden rounded-[1.1rem] border border-cyanedge/25 bg-black/40 shadow-[0_12px_26px_rgba(0,0,0,.32)] md:h-36" },
+                      h("div", {
+                        className: "h-full w-full bg-cover bg-center",
+                        style: { backgroundImage: `url(${thumb})` }
+                      })
+                    )
+                  )
+                ),
+                h(AnimatePresence, { mode: "wait" },
+                  h(motion.div, {
+                    key: `${service.slug}-hero`,
+                    initial: { opacity: 0, y: 28, scale: 1.02 },
+                    animate: { opacity: 1, y: -24, scale: 1 },
+                    exit: { opacity: 0, y: 12, scale: 0.99 },
+                    transition: { duration: 0.64, ease: [0.22, 1, 0.36, 1] },
+                    className: "absolute inset-x-[6%] bottom-8 top-[27%] z-10 md:bottom-10 md:top-[24%]"
+                  },
+                    h("div", { className: "h-full w-full rounded-[1.5rem] bg-contain bg-center bg-no-repeat", style: { backgroundImage: `url(${activeShowcase.image})` } }),
+                    h("div", { className: "absolute inset-x-[14%] bottom-2 h-10 rounded-full bg-black/60 blur-2xl" }),
+                    h("div", { className: "absolute inset-x-[10%] bottom-0 h-24 bg-gradient-to-t from-cyanedge/10 via-transparent to-transparent blur-2xl" })
+                  )
+                ),
+                h("div", { className: "absolute bottom-4 left-4 right-4 z-20 md:left-6 md:right-[7.5rem]" },
+                  h("div", { className: "max-w-xl rounded-[1.35rem] border border-white/10 bg-black/38 p-4 backdrop-blur-md md:p-5" },
+                    h(AnimatePresence, { mode: "wait" },
+                      h(motion.div, {
+                        key: `${service.slug}-text`,
+                        initial: { opacity: 0, y: -16 },
+                        animate: { opacity: 1, y: 0 },
+                        exit: { opacity: 0, y: -8 },
+                        transition: { duration: 0.58, ease: [0.22, 1, 0.36, 1] }
+                      },
+                        h("p", { className: "font-body text-[0.68rem] font-bold uppercase tracking-[0.34em] text-raceorange md:text-xs" }, "Downforce Detailing"),
+                        h("h2", { className: "mt-3 leading-none" }, h(GlitchText, { text: activeService.name, size: "section", intensity: 0.9 })),
+                        h("p", { className: "mt-3 font-body text-sm leading-6 text-slate-300 md:text-base md:leading-7" }, posterContent.description)
+                      )
+                    )
+                  )
+                )
+              ),
+              h("div", { className: "flex flex-col gap-5" },
+                h("div", { className: "rounded-[1.75rem] border border-white/10 bg-black/25 p-6 md:p-7" },
+                  h("p", { className: "font-body text-xs font-bold uppercase tracking-[0.34em] text-raceorange" }, "Service Benefits"),
+                  h(AnimatePresence, { mode: "wait" },
+                    h(motion.div, {
+                      key: `${service.slug}-benefits`,
+                      initial: { opacity: 0, y: -12 },
+                      animate: { opacity: 1, y: 0 },
+                      exit: { opacity: 0, y: -8 },
+                      transition: { duration: 0.58, ease: [0.22, 1, 0.36, 1] },
+                      className: "mt-4 space-y-3"
+                    },
+                      posterContent.benefits.map((benefit) =>
+                        h("div", { key: benefit, className: "flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3" },
+                          h("span", { className: "mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-cyanedge shadow-[0_0_12px_rgba(32,244,255,.45)]" }),
+                          h("p", { className: "font-body text-sm leading-6 text-slate-200" }, benefit)
+                        )
+                      )
+                    )
+                  )
+                ),
+                h("div", { className: "rounded-[1.75rem] border border-white/10 bg-black/25 p-6 md:p-7" },
+                  h("p", { className: "font-body text-xs font-bold uppercase tracking-[0.34em] text-cyanedge" }, pricingHeading),
+                  h(AnimatePresence, { mode: "wait" },
+                    h(motion.div, {
+                      key: `${service.slug}-pricing`,
+                      initial: { opacity: 0, y: -10 },
+                      animate: { opacity: 1, y: 0 },
+                      exit: { opacity: 0, y: -6 },
+                      transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
+                      className: "mt-4 grid gap-3 md:grid-cols-2"
+                    },
+                      options.map((option) => {
+                        const selected = option.label === selectedOption;
+                        return h("button", {
+                          key: `${service.slug}-${option.label}`,
+                          type: "button",
+                          onClick: () => setSelectedOption(option.label),
+                          className: `rounded-[1.25rem] border px-4 py-4 text-left transition ${
+                            selected
+                              ? "border-cyanedge bg-cyanedge/10 shadow-[0_0_24px_rgba(32,244,255,.14)]"
+                              : "border-white/10 bg-white/[0.03] hover:border-cyanedge/35"
+                          }`
+                        },
+                          h("p", { className: "font-body text-[0.68rem] font-bold uppercase tracking-[0.22em] text-slate-400" }, option.label),
+                          h("p", { className: "mt-2 font-display text-4xl uppercase leading-none text-raceorange" }, option.price)
+                        );
+                      })
+                    )
+                  )
+                ),
+                addOnSection
+              )
+            )
+          )
+        ),
+        h("div", { className: "glass-panel mt-6 grid gap-8 rounded-[1.75rem] p-6 lg:grid-cols-[0.85fr_1.15fr] lg:p-8" },
+          h("aside", { className: "rounded-[1.4rem] border border-cyanedge/20 bg-black/28 p-6" },
+            h("p", { className: "font-body text-xs font-bold uppercase tracking-[0.32em] text-slate-400" }, "Selected Vehicle"),
+            h("p", { className: "mt-3 font-display text-5xl uppercase leading-none text-cyanedge" }, activeOption ? activeOption.label : "Choose One"),
+            h("p", { className: "mt-8 font-body text-xs font-bold uppercase tracking-[0.32em] text-slate-400" }, "Estimated Time"),
+            h("p", { className: "mt-2 font-display text-4xl uppercase text-white" }, activeService.time),
+            h("p", { className: "mt-8 font-body text-xs font-bold uppercase tracking-[0.32em] text-slate-400" }, "Price"),
+            h("p", { className: "mt-2 font-display text-5xl uppercase text-raceorange" }, activeOption ? activeOption.price : activeService.price),
+            activeOption ? h("p", { className: "mt-4 font-body text-sm leading-6 text-slate-300" }, activeOption.note) : null,
+            availableAddOns.length ? h(React.Fragment, null,
+              h("p", { className: "mt-8 font-body text-xs font-bold uppercase tracking-[0.32em] text-slate-400" }, "Selected Add-Ons"),
+              h("p", { className: "mt-2 font-body text-sm leading-6 text-slate-300" }, selectedAddOnText)
+            ) : null
+          ),
+          h("form", { id: "service-request-form", className: "service-form grid gap-5", onSubmit: (event) => event.preventDefault() },
+            h("div", { className: "grid gap-5 md:grid-cols-2" }, fields.map((field) => h("label", { key: field }, field, h("input", { type: field === "Email" ? "email" : "text", placeholder: field })))),
+            h("label", null, "Selected Vehicle", h("input", { type: "text", value: activeOption ? activeOption.label : "", readOnly: true })),
+            availableAddOns.length ? h("label", null, "Selected Add-Ons", h("input", { type: "text", value: selectedAddOnText, readOnly: true })) : null,
+            h("label", null, "Optional Description of the Car", h("textarea", { rows: 5, placeholder: "Tell us about condition, goals, location, or preferred appointment window." })),
+            h("div", null, h(Button, { onClick: () => {} }, "Submit Request"))
+          )
+        )
+      )
+    )
+  );
+}
+
+function GalleryPage() {
+  return h(PageShell, { eyebrow: "Portfolio", title: "Gallery", intro: "Future photos of past detailed cars will live here. For now, these premium slots keep the gallery ready for dramatic before-and-after work." },
+    h("div", { className: "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" },
+      Array.from({ length: 9 }).map((_, index) =>
+        h("article", { key: index, className: "glass-panel group aspect-[4/3] overflow-hidden rounded-2xl p-4" },
+          h("div", { className: "relative h-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-slate-950 via-midnight to-black" },
+            h("div", { className: "absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(32,244,255,.2),transparent_30%),linear-gradient(135deg,transparent,rgba(255,138,42,.18))]" }),
+            h("div", { className: "absolute inset-x-8 bottom-10 h-8 rounded-full bg-cyanedge/20 blur-2xl" }),
+            h("p", { className: "absolute bottom-5 left-5 font-display text-2xl font-black uppercase text-white" }, `Detail Slot ${index + 1}`)
+          )
+        )
+      )
+    )
+  );
+}
+
+function AboutPage() {
+  return h(PageShell, { eyebrow: "About Us", title: "Premium Mobile Detailing", intro: "Downforce Detailing is a premium mobile detailing brand serving the St. Louis area." },
+    h("div", { className: "glass-panel rounded-2xl p-8 text-lg leading-8 text-slate-200 md:p-12" },
+      h("p", null, "We bring a performance-car mindset to every appointment: sharp process, clean execution, and a finish built for pride of ownership. Downforce Detailing specializes in exterior restoration, interior deep cleaning, paint refinement, ceramic protection, and premium vehicle presentation."),
+      h("p", { className: "mt-6" }, "Whether your vehicle needs a weekly gloss reset or a full transformation, our mobile service is built around convenience without sacrificing the polished feel of a high-end detailing studio.")
+    )
+  );
+}
+
+function AddonsPage() {
+  const availability = addOnOptions.map((item) => {
+    const services = Object.entries(serviceAddOnAvailability)
+      .filter(([, labels]) => labels.includes(item.label))
+      .map(([slug]) => servicePages.find((service) => service.slug === slug)?.name)
+      .filter(Boolean);
+    return { ...item, services };
+  });
+
+  return h(PageShell, {
+    eyebrow: "Addons",
+    title: "Detailing Addons",
+    intro: "Choose finishing upgrades that can be layered onto eligible exterior, interior, and full detail services."
+  },
+    h("div", { className: "grid gap-5 md:grid-cols-2 xl:grid-cols-3" },
+      availability.map((item) =>
+        h("article", { key: item.label, className: "glass-panel rounded-2xl p-6" },
+          h("div", { className: "mb-5 h-12 w-12 rounded-xl border border-cyanedge/45 bg-gradient-to-br from-cyanedge/18 to-raceorange/12 shadow-glow" }),
+          h("p", { className: "text-xs font-black uppercase tracking-[0.26em] text-raceorange" }, item.price),
+          h("h2", { className: "mt-3 font-display text-3xl font-black uppercase leading-none text-white" }, item.label),
+          h("p", { className: "mt-4 leading-7 text-slate-300" }, item.note),
+          h("div", { className: "mt-6 border-t border-white/10 pt-5" },
+            h("p", { className: "text-xs font-black uppercase tracking-[0.24em] text-cyanedge" }, "Available With"),
+            h("p", { className: "mt-3 text-sm leading-6 text-slate-300" }, item.services.length ? item.services.join(", ") : "Ask during booking")
+          )
+        )
+      )
+    )
+  );
+}
+
+function ProductsPage() {
+  return h(PageShell, { eyebrow: "Recommended Products", title: "Detailing Products", intro: "A premium finish starts with the right maintenance products between appointments." },
+    h("div", { className: "grid gap-5 md:grid-cols-2 xl:grid-cols-3" },
+      products.map(([name, copy]) =>
+        h("article", { key: name, className: "glass-panel rounded-2xl p-6" },
+          h("div", { className: "mb-5 h-12 w-12 rounded-xl border border-cyanedge/40 bg-cyanedge/10 shadow-glow" }),
+          h("h2", { className: "font-display text-2xl font-black uppercase text-white" }, name),
+          h("p", { className: "mt-4 leading-7 text-slate-300" }, copy)
+        )
+      )
+    )
+  );
+}
+
+function WhyUsPage() {
+  const reasons = [
+    ["Convenience without compromise", "You get mobile service that respects your time while still feeling polished, careful, and premium."],
+    ["Clear service choices", "Packages are built around what your vehicle actually needs, so booking feels simple instead of confusing."],
+    ["Care you can feel", "Every detail is handled with the goal of making your vehicle feel cleaner, sharper, and easier to enjoy."],
+    ["Protection-minded process", "From interior touchpoints to exterior finish, the work is focused on presentation and long-term care."]
+  ];
+
+  return h(PageShell, {
+    eyebrow: "Why Us?",
+    title: "A Better Detail Experience",
+    intro: "You should feel confident before the appointment, comfortable during the process, and genuinely happy when you see the finished vehicle."
+  },
+    h("div", { className: "grid gap-6 lg:grid-cols-[0.9fr_1.1fr]" },
+      h("article", { className: "glass-panel rounded-[1.7rem] p-8 md:p-10" },
+        h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, "Built Around You"),
+        h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Simple Careful Personal", size: "section", intensity: 0.9 })),
+        h("p", { className: "mt-6 text-base leading-7 text-slate-300" }, "Your vehicle is part of your daily life, and keeping it clean should not feel like a hassle. The goal is to make the process easy, the communication clear, and the final result something you are proud to drive."),
+        h("div", { className: "mt-8" }, h(Button, { onClick: () => goToServices() }, "View Services"))
+      ),
+      h("div", { className: "grid gap-4 sm:grid-cols-2" },
+        reasons.map(([title, copy]) =>
+          h("article", { key: title, className: "glass-panel rounded-[1.4rem] p-6" },
+            h("div", { className: "mb-5 h-10 w-10 rounded-full border border-cyanedge/45 bg-gradient-to-br from-cyanedge/15 to-raceorange/10 shadow-glow" }),
+            h("h3", { className: "font-display text-2xl font-black uppercase text-white" }, title),
+            h("p", { className: "mt-3 text-sm leading-6 text-slate-300" }, copy)
+          )
+        )
+      )
+    )
+  );
+}
+
+function MembershipPage() {
+  const vehicles = [
+    { label: "Coupes", lookup: { exterior: "Coupe", interior: "Coupe", full: "Coupe" } },
+    { label: "Sedans", lookup: { exterior: "Sedan", interior: "Sedan", full: "Sedan" } },
+    { label: "Small SUVs", lookup: { exterior: "SUV", interior: "Small SUV", full: "Small SUV" } },
+    { label: "Large SUVs", lookup: { exterior: "SUV", interior: "Large SUV", full: "Large SUV" } },
+    { label: "Trucks", lookup: { exterior: "Truck / Van", interior: "Large Truck", full: "Large Truck" } },
+    { label: "Utility Trucks / Vans", lookup: { exterior: "Truck / Van", interior: "Utility Truck / Van", full: "Utility Truck / Van" } }
+  ];
+  const services = [
+    {
+      id: "exterior",
+      label: "Exterior",
+      serviceSlug: "exterior-wash-wax",
+      copy: "Routine exterior maintenance for paint, wheels, road film, and gloss.",
+      perks: ["Recurring exterior refresh", "Gloss and wax upkeep", "Road grime kept under control"],
+      monthlyDiscount: 0.1,
+      biweeklyDiscount: 0.2
+    },
+    {
+      id: "interior",
+      label: "Interior",
+      serviceSlug: "interior-detail",
+      copy: "Consistent cabin care for seats, carpets, touchpoints, trim, and glass.",
+      perks: ["Cleaner cabin feel", "Seats and carpets maintained", "High-touch areas refreshed"],
+      monthlyDiscount: 0.1,
+      biweeklyDiscount: 0.2
+    },
+    {
+      id: "full",
+      label: "Full Detail",
+      serviceSlug: "full-detail",
+      copy: "A complete inside-and-out maintenance plan for the strongest recurring reset.",
+      perks: ["Interior and exterior care", "Best all-around upkeep", "Showroom-style maintenance"],
+      monthlyDiscount: 0.2,
+      biweeklyDiscount: 0.3
+    }
+  ];
+  const [selectedVehicle, setSelectedVehicle] = useState(vehicles[0].label);
+  const [selectedService, setSelectedService] = useState(services[2].id);
+  const vehicle = vehicles.find((item) => item.label === selectedVehicle) || vehicles[0];
+  const service = services.find((item) => item.id === selectedService) || services[0];
+  const baseOption = (serviceVehicleOptions[service.serviceSlug] || []).find((option) => option.label === vehicle.lookup[service.id]);
+  const basePrice = baseOption ? Number(baseOption.price.replace(/[^0-9.]/g, "")) : 0;
+  const formatPrice = (value) => `$${Math.round(value)}`;
+  const monthlyPrice = formatPrice(basePrice * (1 - service.monthlyDiscount));
+  const biweeklyPrice = formatPrice(basePrice * (1 - service.biweeklyDiscount));
+
+  return h(PageShell, {
+    eyebrow: "Membership",
+    title: "Detail Memberships",
+    intro: "Choose your vehicle, pick the type of detail you want maintained, and compare monthly or biweekly member pricing."
+  },
+    h("div", { className: "grid gap-6" },
+      h("div", { className: "glass-panel rounded-[1.7rem] p-5 md:p-6" },
+        h("p", { className: "mb-4 text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, "Vehicle Type"),
+        h("div", { className: "flex flex-wrap gap-3" },
+          vehicles.map((item) =>
+            h("button", {
+              key: item.label,
+              type: "button",
+              onClick: () => setSelectedVehicle(item.label),
+              className: `rounded-full border-2 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] transition ${
+                item.label === selectedVehicle
+                  ? "border-transparent bg-[linear-gradient(135deg,rgba(44,129,255,.95),rgba(32,244,255,.78)_45%,rgba(255,138,42,.9))] text-white shadow-[0_0_22px_rgba(32,244,255,.18)]"
+                  : "border-cyanedge/35 bg-black/25 text-slate-300 hover:border-raceorange/60 hover:text-white"
+              }`
+            }, item.label)
+          )
+        )
+      ),
+      h("div", { className: "grid gap-4 md:grid-cols-3" },
+        services.map((item) =>
+          h("button", {
+            key: item.id,
+            type: "button",
+            onClick: () => setSelectedService(item.id),
+            className: `glass-panel rounded-[1.4rem] p-6 text-left transition ${
+              item.id === selectedService ? "shadow-[0_0_0_1px_rgba(32,244,255,.55),0_0_32px_rgba(255,138,42,.12)]" : "opacity-82 hover:opacity-100"
+            }`
+          },
+            h("p", { className: "text-xs font-black uppercase tracking-[0.3em] text-raceorange" }, "Membership Tier"),
+            h("h2", { className: "mt-4 font-display text-4xl font-black uppercase leading-none text-white" }, item.label),
+            h("p", { className: "mt-4 text-sm leading-6 text-slate-300" }, item.copy)
+          )
+        )
+      ),
+      h("div", { className: "glass-panel rounded-[1.7rem] p-6 md:p-8" },
+        h("div", { className: "grid gap-6 lg:grid-cols-[0.85fr_1.15fr]" },
+          h("div", null,
+            h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, `${selectedVehicle} | ${service.label}`),
+            h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Member Pricing", size: "section", intensity: 0.9 })),
+            h("p", { className: "mt-5 text-base leading-7 text-slate-300" }, `Base price: ${baseOption ? baseOption.price : "Quote"}. Membership pricing below is calculated from the selected vehicle and service.`),
+            h("div", { className: "mt-6 grid gap-3" },
+              service.perks.map((perk) =>
+                h("div", { key: perk, className: "flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3" },
+                  h("span", { className: "h-2.5 w-2.5 rounded-full bg-cyanedge shadow-[0_0_12px_rgba(32,244,255,.55)]" }),
+                  h("p", { className: "text-sm font-semibold text-slate-200" }, perk)
+                )
+              )
+            )
+          ),
+          h("div", { className: "grid gap-4 md:grid-cols-2" },
+            h("article", { className: "rounded-[1.4rem] border border-cyanedge/30 bg-black/30 p-6" },
+              h("p", { className: "text-xs font-black uppercase tracking-[0.3em] text-cyanedge" }, "Monthly"),
+              h("h3", { className: "mt-4 font-display text-5xl font-black uppercase leading-none text-white" }, monthlyPrice),
+              h("p", { className: "mt-3 font-display text-3xl font-black uppercase leading-none text-raceorange" }, `${Math.round(service.monthlyDiscount * 100)}% off`),
+              h("p", { className: "mt-4 text-sm leading-6 text-slate-300" }, "Best for a steady monthly maintenance rhythm."),
+              h("button", { className: "mt-6 w-full rounded-full border-2 border-cyanedge/70 bg-cyanedge px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-asphalt shadow-glow" }, "Select Monthly")
+            ),
+            h("article", { className: "rounded-[1.4rem] border border-raceorange/35 bg-black/30 p-6" },
+              h("p", { className: "text-xs font-black uppercase tracking-[0.3em] text-raceorange" }, "Biweekly"),
+              h("h3", { className: "mt-4 font-display text-5xl font-black uppercase leading-none text-white" }, biweeklyPrice),
+              h("p", { className: "mt-3 font-display text-3xl font-black uppercase leading-none text-raceorange" }, `${Math.round(service.biweeklyDiscount * 100)}% off`),
+              h("p", { className: "mt-4 text-sm leading-6 text-slate-300" }, "Best for vehicles that need more frequent care."),
+              h("button", { className: "mt-6 w-full rounded-full border-2 border-raceorange/70 bg-[linear-gradient(135deg,#20f4ff,#ff8a2a)] px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-white shadow-orange" }, "Select Biweekly")
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function PageShell({ eyebrow, title, intro, children }) {
+  return h("main", null,
+    h(Section, { className: "min-h-[70vh] topographic" },
+      h("div", { className: "mb-10 max-w-4xl" },
+        h("p", { className: "text-xs font-black uppercase tracking-[0.3em] text-raceorange" }, eyebrow),
+        h("h1", { className: "mt-4 leading-none" }, h(GlitchText, { text: title, size: "section", intensity: 0.95 })),
+        h("p", { className: "mt-5 text-lg leading-8 text-slate-300" }, intro)
+      ),
+      children
+    )
+  );
+}
+
+function Footer() {
+  return h("footer", { className: "border-t border-white/10 bg-black/70 px-4 py-10 sm:px-6 lg:px-8" },
+    h("div", { className: "mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_auto]" },
+      h("div", null, h("h2", { className: "leading-none" }, h(GlitchText, { text: "Downforce", size: "card", intensity: 0.78, animated: false })), h("p", { className: "mt-2 font-semibold text-cyanedge" }, "We don't just clean, we perfect.")),
+      h("div", { className: "grid gap-3 text-sm font-bold uppercase tracking-[0.14em] text-slate-300 sm:grid-cols-3" },
+        ["Privacy Policy", "Terms of Service", "Instagram", "Contact", "Service Area"].map((item) => h("a", { key: item, href: "#home", className: "hover:text-raceorange" }, item))
+      )
+    )
+  );
+}
+
+function App() {
+  const [route, setRoute] = useState(() => parseRoute(window.location.hash));
+  const [intro, setIntro] = useState(true);
+
+  useEffect(() => {
+    const update = () => setRoute(parseRoute(window.location.hash));
+    window.addEventListener("hashchange", update);
+    const timer = window.setTimeout(() => setIntro(false), 3450);
+    return () => {
+      window.removeEventListener("hashchange", update);
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  const service = useMemo(() => {
+    const slug = route.page.startsWith("service/") ? route.page.split("/")[1] : "";
+    return servicePages.find((item) => item.slug === slug);
+  }, [route.page]);
+
+  let content = h(HomePage);
+  if (route.page === "book") content = h(BookingPage, { selectedService: route.params.service });
+  if (route.page === "gallery") content = h(GalleryPage);
+  if (route.page === "about") content = h(WhyUsPage);
+  if (route.page === "addons") content = h(AddonsPage);
+  if (route.page === "products") content = h(ProductsPage);
+  if (route.page === "why-us") content = h(WhyUsPage);
+  if (route.page === "membership") content = h(MembershipPage);
+  if (service) content = h(ServiceRequestPage, { service });
+
+  return h(React.Fragment, null,
+    h(AnimatePresence, null, intro && h(GarageIntro)),
+    h(Header, { page: route.page }),
+    h(SummerSaleBar),
+    h(AnimatePresence, { mode: "wait" },
+      h(motion.div, { key: window.location.hash || route.page, initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 }, transition: { duration: 0.35 } }, content)
+    ),
+    h(Footer)
+  );
+}
+
+createRoot(document.getElementById("root")).render(h(App));
+
+    </script>
+  </body>
+</html>
+
