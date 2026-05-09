@@ -1,5 +1,5 @@
 # Downforce Detailing
 
-Static website package for GitHub Pages.
+Public website for Downforce Detailing.
 
-The public entry file is `index.html`.
+Live site: https://loftonbnall-hue.github.io/downforce-detailing/
