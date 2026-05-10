@@ -804,19 +804,19 @@ textarea {
 
 .hero-logo-panel {
   position: relative;
-  overflow: visible;
-  border-width: 15px;
-  border-radius: 0.9rem;
+  overflow: hidden;
+  border-radius: 1.8rem;
   background:
-    linear-gradient(145deg, rgba(0, 0, 0, 0.72), rgba(5, 15, 25, 0.56)) padding-box,
-    linear-gradient(128deg, rgba(0, 194, 199, 0.95), rgba(31, 111, 255, 0.76) 44%, rgba(255, 154, 77, 0.9) 72%, rgba(0, 194, 199, 0.68)) border-box;
-  clip-path: polygon(1rem 0, calc(100% - 1rem) 0, 100% 1rem, 100% calc(100% - 1rem), calc(100% - 1rem) 100%, 1rem 100%, 0 calc(100% - 1rem), 0 1rem);
+    radial-gradient(circle at 24% 18%, rgba(32, 244, 255, 0.13), transparent 34%) padding-box,
+    radial-gradient(circle at 86% 80%, rgba(255, 138, 42, 0.11), transparent 34%) padding-box,
+    linear-gradient(145deg, rgba(10, 25, 42, 0.9), rgba(4, 9, 16, 0.94)) padding-box,
+    linear-gradient(135deg, rgba(32, 244, 255, 0.72), rgba(32, 244, 255, 0.16) 38%, rgba(255, 138, 42, 0.18) 68%, rgba(255, 138, 42, 0.62)) border-box;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -18px 34px rgba(0, 194, 199, 0.05),
-    0 18px 52px rgba(0, 0, 0, 0.44),
-    0 0 30px rgba(0, 194, 199, 0.26),
-    0 0 24px rgba(255, 154, 77, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 16px 46px rgba(0, 0, 0, 0.3),
+    0 0 18px rgba(32, 244, 255, 0.08),
+    0 0 20px rgba(255, 138, 42, 0.05);
 }
 
 .hero-logo-panel::before,
@@ -829,18 +829,18 @@ textarea {
 }
 
 .hero-logo-panel::before {
-  inset: -20px;
-  border: 2px solid rgba(0, 194, 199, 0.28);
-  border-radius: 1.15rem;
-  clip-path: polygon(1.2rem 0, calc(100% - 1.2rem) 0, 100% 1.2rem, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 1.2rem 100%, 0 calc(100% - 1.2rem), 0 1.2rem);
-  filter: drop-shadow(0 0 18px rgba(0, 194, 199, 0.18));
+  inset: 0;
+  z-index: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(32, 244, 255, 0.08), transparent 42%, rgba(255, 138, 42, 0.08));
 }
 
 .hero-logo-panel::after {
-  inset: -8px 12% auto;
-  height: 15px;
-  background: linear-gradient(90deg, transparent, rgba(255, 154, 77, 0.78), transparent);
-  box-shadow: 0 0 18px rgba(255, 154, 77, 0.22);
+  inset: auto 12% 0;
+  z-index: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #20f4ff, #ff8a2a, transparent);
+  box-shadow: 0 0 18px rgba(32, 244, 255, 0.65);
 }
 
 .hero-logo-panel img {
@@ -1204,14 +1204,7 @@ textarea {
 
   .hero-logo-panel {
     max-width: 100%;
-    border-width: 8px;
     padding: 0.65rem;
-    clip-path: polygon(0.65rem 0, calc(100% - 0.65rem) 0, 100% 0.65rem, 100% calc(100% - 0.65rem), calc(100% - 0.65rem) 100%, 0.65rem 100%, 0 calc(100% - 0.65rem), 0 0.65rem);
-  }
-
-  .hero-logo-panel::before,
-  .hero-logo-panel::after {
-    display: none;
   }
 
   .hero-logo-panel img[alt="Downforce Detailing logo"] {
