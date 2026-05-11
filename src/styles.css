@@ -1094,6 +1094,39 @@ textarea {
   box-shadow: 0 0 0 4px rgba(32, 244, 255, 0.1), 0 0 24px rgba(255, 138, 42, 0.14);
 }
 
+.service-option-card,
+.service-addon-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.service-option-label,
+.service-addon-label,
+.service-option-price {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.service-option-price {
+  display: block;
+  font-size: clamp(1.65rem, 7vw, 2.25rem);
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.service-addon-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.service-addon-price {
+  min-width: max-content;
+  text-align: right;
+}
+
 .service-form label {
   display: grid;
   gap: 0.45rem;

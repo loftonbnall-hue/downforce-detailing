@@ -1028,18 +1028,18 @@ function ServiceRequestPage({ service }) {
               key: `${service.slug}-${item.label}-addon`,
               type: "button",
               onClick: () => setSelectedAddOns((current) => current.includes(item.label) ? current.filter((label) => label !== item.label) : [...current, item.label]),
-              className: `rounded-[1.25rem] border px-4 py-4 text-left transition ${
+              className: `service-addon-card rounded-[1.25rem] border px-4 py-4 text-left transition ${
                 selected
                   ? "border-cyanedge bg-cyanedge/10 shadow-[0_0_24px_rgba(32,244,255,.14)]"
                   : "border-white/10 bg-white/[0.03] hover:border-cyanedge/35"
               }`
             },
-              h("div", { className: "flex items-start justify-between gap-3" },
-                h("div", null,
-                  h("p", { className: "font-display text-2xl uppercase leading-none text-white" }, item.label),
+              h("div", { className: "service-addon-content" },
+                h("div", { className: "min-w-0" },
+                  h("p", { className: "service-addon-label font-display text-2xl uppercase leading-none text-white" }, item.label),
                   h("p", { className: "mt-2 font-body text-xs uppercase tracking-[0.16em] text-slate-400" }, item.note)
                 ),
-                h("p", { className: "font-display text-3xl uppercase leading-none text-raceorange" }, item.price)
+                h("p", { className: "service-option-price service-addon-price font-display uppercase leading-none text-raceorange" }, item.price)
               )
             );
           })
@@ -1145,14 +1145,14 @@ function ServiceRequestPage({ service }) {
                           key: `${service.slug}-${option.label}`,
                           type: "button",
                           onClick: () => setSelectedOption(option.label),
-                          className: `rounded-[1.25rem] border px-4 py-4 text-left transition ${
+                          className: `service-option-card rounded-[1.25rem] border px-4 py-4 text-left transition ${
                             selected
                               ? "border-cyanedge bg-cyanedge/10 shadow-[0_0_24px_rgba(32,244,255,.14)]"
                               : "border-white/10 bg-white/[0.03] hover:border-cyanedge/35"
                           }`
                         },
-                          h("p", { className: "font-body text-[0.68rem] font-bold uppercase tracking-[0.22em] text-slate-400" }, option.label),
-                          h("p", { className: "mt-2 font-display text-4xl uppercase leading-none text-raceorange" }, option.price)
+                          h("p", { className: "service-option-label font-body text-[0.68rem] font-bold uppercase tracking-[0.22em] text-slate-400" }, option.label),
+                          h("p", { className: "service-option-price mt-2 font-display uppercase leading-none text-raceorange" }, option.price)
                         );
                       })
                     )
