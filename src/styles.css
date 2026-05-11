@@ -636,7 +636,7 @@ textarea {
     linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
     linear-gradient(135deg, rgba(32, 244, 255, 0.74), rgba(255, 138, 42, 0.55)) border-box;
   padding: 0.5rem 1rem;
-  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
   color: rgba(226, 237, 245, 0.88);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
@@ -670,9 +670,6 @@ textarea {
 
 .nav-tab:hover,
 .nav-tab-active {
-  background:
-    linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
-    linear-gradient(135deg, rgba(3, 24, 58, 0.95), rgba(8, 38, 86, 0.92)) border-box;
   color: #fff;
   filter: saturate(1.12);
   box-shadow:
@@ -703,21 +700,11 @@ textarea {
   font-size: 0.9rem;
 }
 
-.nav-tab-membership:hover,
-.nav-tab-membership.nav-tab-active {
-  background:
-    linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
-    linear-gradient(135deg, rgba(3, 24, 58, 0.95), rgba(8, 38, 86, 0.92)) border-box;
-}
-
 .nav-tab-membership::before {
   background: linear-gradient(90deg, rgba(44, 129, 255, 0.96), rgba(32, 244, 255, 0.82) 48%, rgba(255, 138, 42, 0.9));
 }
 
 .nav-tab-active {
-  background:
-    linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
-    linear-gradient(135deg, rgba(3, 24, 58, 0.95), rgba(8, 38, 86, 0.92)) border-box;
   color: #fff;
 }
 
