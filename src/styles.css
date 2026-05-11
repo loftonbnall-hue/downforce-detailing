@@ -631,11 +631,12 @@ textarea {
   gap: 0.5rem;
   overflow: hidden;
   border: 2px solid transparent;
-  border-radius: 999px;
+  border-radius: 0;
   background:
     linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
     linear-gradient(135deg, rgba(32, 244, 255, 0.74), rgba(255, 138, 42, 0.55)) border-box;
   padding: 0.5rem 1rem;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
   color: rgba(226, 237, 245, 0.88);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
@@ -646,12 +647,14 @@ textarea {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   isolation: isolate;
+  transform: skewX(-10deg);
   transition: color 180ms ease, box-shadow 180ms ease, transform 180ms ease, filter 180ms ease, background 180ms ease;
 }
 
 .nav-tab > * {
   position: relative;
   z-index: 1;
+  transform: skewX(10deg);
 }
 
 .nav-tab::before {
@@ -677,7 +680,7 @@ textarea {
     inset 0 -10px 20px rgba(255, 138, 42, 0.055),
     0 0 22px rgba(32, 244, 255, 0.18),
     0 0 18px rgba(255, 138, 42, 0.1);
-  transform: translateY(-1px);
+  transform: skewX(-10deg) translateY(-1px);
 }
 
 .nav-tab:hover::before,
@@ -732,11 +735,11 @@ textarea {
   transition: color 180ms ease, box-shadow 180ms ease, filter 180ms ease, transform 180ms ease, background 180ms ease;
 }
 
-.btn-hero-secondary {
+.btn-primary-skew.btn-hero-secondary {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(5, 14, 25, 0.72)) padding-box,
     linear-gradient(135deg, rgba(255, 138, 42, 0.7), rgba(32, 244, 255, 0.45)) border-box;
-  color: #f5f7fa;
+  color: #05070b;
 }
 
 .btn-primary-skew::before {
@@ -770,9 +773,9 @@ textarea {
   transform: skewX(-10deg) translateY(-1px);
 }
 
-.btn-hero-secondary:hover,
-.btn-hero-secondary:focus-visible {
-  color: #04101a;
+.btn-primary-skew.btn-hero-secondary:hover,
+.btn-primary-skew.btn-hero-secondary:focus-visible {
+  color: #05070b;
 }
 
 .btn-primary-skew:hover::before,

@@ -641,7 +641,7 @@ function NavLinks({ page, className }) {
         onClick: () => setOpen((value) => !value),
         className: `nav-tab nav-tab-services ${servicesActive ? "nav-tab-active" : ""}`
       },
-        "Services",
+        h("span", null, "Services"),
         h("svg", {
           viewBox: "0 0 12 12",
           fill: "none",
@@ -674,7 +674,7 @@ function NavLinks({ page, className }) {
         type: "button",
         onClick: () => go(target),
         className: `nav-tab ${page === target ? "nav-tab-active" : ""}`
-      }, label)
+      }, h("span", null, label))
     ),
     membershipItem
       ? h("button", {
@@ -682,7 +682,7 @@ function NavLinks({ page, className }) {
           type: "button",
           onClick: () => go(membershipItem[1]),
           className: `nav-tab nav-tab-membership ${page === membershipItem[1] ? "nav-tab-active" : ""}`
-        }, membershipItem[0])
+        }, h("span", null, membershipItem[0]))
       : null
   );
 }
