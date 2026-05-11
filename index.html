@@ -480,6 +480,8 @@ function Button({ children, onClick, variant = "primary" }) {
   const style =
     variant === "hero"
       ? "btn-primary-skew border-cyanedge/70 bg-cyanedge text-asphalt shadow-glow"
+      : variant === "hero-secondary"
+      ? "btn-primary-skew btn-hero-secondary border-raceorange/70 bg-white/5 text-white shadow-orange"
       : variant === "primary"
       ? "border-cyanedge/70 bg-cyanedge text-asphalt shadow-glow hover:bg-white"
       : "border-raceorange/70 bg-white/5 text-white shadow-orange hover:border-cyanedge hover:text-cyanedge";
@@ -487,9 +489,9 @@ function Button({ children, onClick, variant = "primary" }) {
     "button",
     {
       onClick,
-      className: `border px-6 py-3 text-sm font-black uppercase tracking-[0.16em] transition ${variant === "hero" ? "" : "rounded-full"} ${style}`
+      className: `border px-6 py-3 text-sm font-black uppercase tracking-[0.16em] transition ${variant === "hero" || variant === "hero-secondary" ? "" : "rounded-full"} ${style}`
     },
-    variant === "hero" ? h("span", { className: "btn-primary-skew-label" }, children) : children
+    variant === "hero" || variant === "hero-secondary" ? h("span", { className: "btn-primary-skew-label" }, children) : children
   );
 }
 
@@ -733,7 +735,7 @@ function Hero() {
             "div",
             { className: "mt-9 flex flex-col gap-4 sm:flex-row" },
             h(Button, { onClick: () => goToServices(), variant: "hero" }, "Book an Appointment"),
-            h(Button, { onClick: () => goTo("gallery"), variant: "secondary" }, "View Gallery")
+            h(Button, { onClick: () => goTo("gallery"), variant: "hero-secondary" }, "View Gallery")
           )
         )
       ),

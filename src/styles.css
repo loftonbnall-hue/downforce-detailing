@@ -732,6 +732,13 @@ textarea {
   transition: color 180ms ease, box-shadow 180ms ease, filter 180ms ease, transform 180ms ease, background 180ms ease;
 }
 
+.btn-hero-secondary {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(5, 14, 25, 0.72)) padding-box,
+    linear-gradient(135deg, rgba(255, 138, 42, 0.7), rgba(32, 244, 255, 0.45)) border-box;
+  color: #f5f7fa;
+}
+
 .btn-primary-skew::before {
   position: absolute;
   inset: 0;
@@ -761,6 +768,11 @@ textarea {
     0 0 26px rgba(32, 244, 255, 0.24),
     0 0 18px rgba(17, 215, 178, 0.16);
   transform: skewX(-10deg) translateY(-1px);
+}
+
+.btn-hero-secondary:hover,
+.btn-hero-secondary:focus-visible {
+  color: #04101a;
 }
 
 .btn-primary-skew:hover::before,
