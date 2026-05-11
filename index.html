@@ -124,11 +124,8 @@ function glyphPieces(pattern) {
 
 const navItems = [
   ["Home", "home"],
-  ["About", "about"],
-  ["FAQ", "faq"],
   ["Gallery", "gallery"],
   ["Why Us?", "why-us"],
-  ["Addons", "addons"],
   ["Membership", "membership"]
 ];
 
@@ -1524,7 +1521,6 @@ function App() {
   if (route.page === "gallery") content = h(GalleryPage);
   if (route.page === "about") content = h(AboutPage);
   if (route.page === "faq" || route.page === "faqs") content = h(FAQPage);
-  if (route.page === "addons") content = h(AddonsPage);
   if (route.page === "products") content = h(ProductsPage);
   if (route.page === "why-us") content = h(WhyUsPage);
   if (route.page === "membership") content = h(MembershipPage);
