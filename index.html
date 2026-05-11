@@ -124,6 +124,8 @@ function glyphPieces(pattern) {
 
 const navItems = [
   ["Home", "home"],
+  ["About", "about"],
+  ["FAQ", "faq"],
   ["Gallery", "gallery"],
   ["Why Us?", "why-us"],
   ["Addons", "addons"],
@@ -392,6 +394,20 @@ const serviceAddOnAvailability = {
   "full-detail": ["Odor Treatment", "Engine Bay Cleaning", "Pet Hair Removal", "Stain Removal", "Power Washing"]
 };
 
+const utilityAccessAnswer = "Please contact us before your appointment so we can confirm whether water or electricity access is needed for your service setup.";
+
+const faqItems = [
+  ["Do you offer mobile detailing?", "Yes. Downforce Detailing offers mobile detailing services in the St. Louis area and surrounding communities."],
+  ["How long does a detail usually take?", "Timing depends on the service and vehicle condition. Basic services may take around 1-2 hours, while full details, paint correction, or ceramic coating can take several hours or longer."],
+  // Update this answer when the mobile setup requirements change.
+  ["Do I need to provide water or electricity?", utilityAccessAnswer],
+  ["What areas do you service?", "We service the St. Louis area, with Webster Groves, Missouri shown as the main map location."],
+  ["Do you detail boats?", "Yes. Boat detailing is available by quote depending on size, condition, and service needs."],
+  ["What is the difference between a full detail and an interior detail?", "An interior detail focuses on the inside of the vehicle, while a full detail includes both interior and exterior cleaning services."],
+  ["Do you offer ceramic coating?", "Yes. Ceramic coating services are available and help protect the vehicle's paint while improving gloss and ease of maintenance."],
+  ["How do I book an appointment?", "Customers can book through the Book Now button or contact Downforce Detailing directly."]
+];
+
 function go(page) {
   window.location.hash = page;
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -406,6 +422,12 @@ function goTo(page, params = {}) {
 function parseRoute(hashValue) {
   const cleaned = (hashValue || "#home").replace(/^#/, "") || "home";
   const [page, query = ""] = cleaned.split("?");
+  if (page === "services") {
+    return {
+      page: "home",
+      params: { focus: "services" }
+    };
+  }
   return {
     page: page || "home",
     params: Object.fromEntries(new URLSearchParams(query))
@@ -413,7 +435,13 @@ function parseRoute(hashValue) {
 }
 
 function goToServices() {
-  goTo("home", { focus: "services" });
+  window.location.hash = "services";
+  window.setTimeout(() => {
+    const section = document.getElementById("services");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, 80);
 }
 
 function useIsMobile() {
@@ -625,48 +653,19 @@ function SummerSaleBar() {
 }
 
 function NavLinks({ page, className }) {
-  const [open, setOpen] = useState(false);
-  const servicesActive = page.startsWith("service/");
+  const servicesActive = page === "home" || page.startsWith("service/");
   const standardNavItems = navItems.filter(([, target]) => target !== "home" && target !== "membership");
   const membershipItem = navItems.find(([, target]) => target === "membership");
-
-  useEffect(() => {
-    setOpen(false);
-  }, [page]);
 
   return h("nav", { className },
     h("div", { className: "relative shrink-0" },
       h("button", {
         type: "button",
-        onClick: () => setOpen((value) => !value),
+        onClick: () => goToServices(),
         className: `nav-tab nav-tab-services ${servicesActive ? "nav-tab-active" : ""}`
       },
-        h("span", null, "Services"),
-        h("svg", {
-          viewBox: "0 0 12 12",
-          fill: "none",
-          stroke: "currentColor",
-          strokeWidth: "1.8",
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          className: `h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`
-        }, h("path", { d: "M2 4.5 6 8l4-3.5" }))
-      ),
-      open
-        ? h("div", { className: "steampunk-menu absolute left-0 top-full z-50 mt-3 min-w-[17rem] p-2" },
-            servicePages.map((item) =>
-              h("button", {
-                key: item.slug,
-                type: "button",
-                onClick: () => {
-                  setOpen(false);
-                  goTo(`service/${item.slug}`);
-                },
-                className: `steampunk-menu-item ${page === `service/${item.slug}` ? "steampunk-menu-item-active" : ""}`
-              }, item.name)
-            )
-          )
-        : null
+        h("span", null, "Services")
+      )
     ),
     standardNavItems.map(([label, target]) =>
       h("button", {
@@ -812,7 +811,7 @@ function ServiceShowcaseSection() {
     { className: "relative overflow-hidden bg-[radial-gradient(circle_at_50%_18%,rgba(32,244,255,.12),transparent_18rem),radial-gradient(circle_at_50%_110%,rgba(255,138,42,.08),transparent_24rem),linear-gradient(180deg,rgba(0,0,0,.24),rgba(2,4,9,.94))]" },
     h("div", { className: "absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(0,0,0,.66),transparent_30%,transparent_70%,rgba(0,0,0,.66))]" }),
     h("div", { className: "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,transparent_24%,rgba(0,0,0,.58)_100%)]" }),
-    h("div", { id: "services-showcase", className: "glass-panel rounded-[2rem] p-5 md:p-8" },
+    h("div", { id: "services", className: "glass-panel rounded-[2rem] p-5 md:p-8" },
       h("div", { className: "mx-auto mb-10 max-w-3xl text-center" },
         h("h2", { className: "leading-none" }, h(GlitchText, { text: "Services", size: "section", intensity: 1.05 }))
       ),
@@ -921,12 +920,12 @@ function MapsSection() {
         h("div", null,
           h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-raceorange" }, "Service Area"),
           h("h2", { className: "mt-4 leading-none" }, h(GlitchText, { text: "Find Us On Google Maps", size: "section", intensity: 0.9 })),
-          h("p", { className: "mt-4 max-w-2xl text-base leading-7 text-slate-300" }, "Downforce Detailing proudly serves the St. Louis area with premium mobile detailing. Use the live map below to explore the area without leaving the site.")
+          h("p", { className: "mt-4 max-w-2xl text-base leading-7 text-slate-300" }, "Downforce Detailing proudly serves the St. Louis area with Webster Groves, Missouri as the main service location shown below. Use the live map to explore the area without leaving the site.")
         ),
         h("div", { className: "overflow-hidden rounded-[1.5rem] border border-cyanedge/25 bg-black/40 shadow-[0_18px_48px_rgba(0,0,0,.32)]" },
           h("iframe", {
-            title: "Downforce Detailing service area map",
-            src: "https://www.google.com/maps?q=St.%20Louis%2C%20MO&z=10&output=embed",
+            title: "Downforce Detailing Webster Groves, Missouri service area map",
+            src: "https://www.google.com/maps?q=Webster%20Groves%2C%20MO&z=12&output=embed",
             className: "h-[24rem] w-full md:h-[30rem]",
             style: { border: 0 },
             loading: "lazy",
@@ -943,7 +942,7 @@ function HomePage({ focusServices = false }) {
   useEffect(() => {
     if (!focusServices) return;
     const timer = window.setTimeout(() => {
-      const section = document.getElementById("services-showcase");
+      const section = document.getElementById("services");
       if (section) {
         section.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -1206,10 +1205,61 @@ function GalleryPage() {
 }
 
 function AboutPage() {
-  return h(PageShell, { eyebrow: "About Us", title: "Premium Mobile Detailing", intro: "Downforce Detailing is a premium mobile detailing brand serving the St. Louis area." },
-    h("div", { className: "glass-panel rounded-2xl p-8 text-lg leading-8 text-slate-200 md:p-12" },
-      h("p", null, "We bring a performance-car mindset to every appointment: sharp process, clean execution, and a finish built for pride of ownership. Downforce Detailing specializes in exterior restoration, interior deep cleaning, paint refinement, ceramic protection, and premium vehicle presentation."),
-      h("p", { className: "mt-6" }, "Whether your vehicle needs a weekly gloss reset or a full transformation, our mobile service is built around convenience without sacrificing the polished feel of a high-end detailing studio.")
+  return h(PageShell, { eyebrow: "About Us", title: "All About Us", intro: "Premium detailing for drivers who want their vehicle to feel sharp, clean, and cared for." },
+    h("div", { id: "about", className: "glass-panel neon-line rounded-2xl p-8 text-lg leading-8 text-slate-200 md:p-12" },
+      h("p", null, "Downforce Detailing is a St. Louis area detailing company focused on premium interior, exterior, full detail, ceramic coating, and paint correction services. Our goal is to deliver clean, reliable, high-quality results for every vehicle we work on.")
+    )
+  );
+}
+
+function FAQPage() {
+  const [openIndex, setOpenIndex] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+
+  const submitQuestion = (event) => {
+    event.preventDefault();
+    // TODO: Connect this form to email forwarding, CRM/database storage, or a backend form endpoint.
+    setSubmitted(true);
+    event.currentTarget.reset();
+  };
+
+  return h(PageShell, {
+    eyebrow: "FAQ",
+    title: "Frequently Asked Questions",
+    intro: "Find quick answers about our detailing services, pricing, booking, and service areas."
+  },
+    h("div", { className: "grid gap-8 lg:grid-cols-[1.12fr_.88fr]" },
+      h("div", { className: "grid gap-4" },
+        faqItems.map(([question, answer], index) => {
+          const isOpen = openIndex === index;
+          return h("article", { key: question, className: `faq-card glass-panel rounded-[1.35rem] ${isOpen ? "faq-card-open" : ""}` },
+            h("button", {
+              type: "button",
+              className: "faq-accordion-button",
+              onClick: () => setOpenIndex(isOpen ? -1 : index),
+              "aria-expanded": isOpen
+            },
+              h("span", null, question),
+              h("span", { className: "faq-accordion-icon", "aria-hidden": true }, isOpen ? "-" : "+")
+            ),
+            h("div", { className: `faq-answer ${isOpen ? "faq-answer-open" : ""}` },
+              h("p", null, answer)
+            )
+          );
+        })
+      ),
+      h("aside", { className: "faq-form-card glass-panel neon-line rounded-[1.6rem] p-6 md:p-8" },
+        h("p", { className: "text-xs font-black uppercase tracking-[0.32em] text-cyanedge" }, "Question Form"),
+        h("h2", { className: "mt-4 font-display text-4xl font-black uppercase leading-none text-white" }, "Still Have a Question?"),
+        h("p", { className: "mt-4 text-sm leading-6 text-slate-300" }, "Send us your question and we'll get back to you as soon as possible."),
+        h("form", { className: "service-form faq-form mt-6 grid gap-5", onSubmit: submitQuestion },
+          h("label", null, "Name", h("input", { name: "name", type: "text", placeholder: "Your name", required: true })),
+          h("label", null, "Email", h("input", { name: "email", type: "email", placeholder: "you@example.com", required: true })),
+          h("label", null, "Question", h("textarea", { name: "question", rows: 6, placeholder: "What would you like to know?", required: true })),
+          h("button", { type: "submit", className: "faq-submit-button" }, "Submit Question"),
+          submitted ? h("p", { className: "faq-success", role: "status" }, "Thanks. Your question is ready to send once the form handler is connected.") : null
+        )
+      )
     )
   );
 }
@@ -1434,7 +1484,17 @@ function Footer() {
     h("div", { className: "mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_auto]" },
       h("div", null, h("h2", { className: "leading-none" }, h(GlitchText, { text: "Downforce", size: "card", intensity: 0.78, animated: false })), h("p", { className: "mt-2 font-semibold text-cyanedge" }, "We don't just clean, we perfect.")),
       h("div", { className: "grid gap-3 text-sm font-bold uppercase tracking-[0.14em] text-slate-300 sm:grid-cols-3" },
-        ["Privacy Policy", "Terms of Service", "Instagram", "Contact", "Service Area"].map((item) => h("a", { key: item, href: "#home", className: "hover:text-raceorange" }, item))
+        [
+          ["Privacy Policy", "#home"],
+          ["Terms of Service", "#home"],
+          ["Instagram", "#home"],
+          ["About", "#about"],
+          ["FAQ", "#faq"],
+          ["Services", "#services"],
+          ["Gallery", "#gallery"],
+          ["Membership", "#membership"],
+          ["Contact", "#services"]
+        ].map(([item, href]) => h("a", { key: item, href, className: "hover:text-raceorange" }, item))
       )
     )
   );
@@ -1459,10 +1519,11 @@ function App() {
     return servicePages.find((item) => item.slug === slug);
   }, [route.page]);
 
-  let content = h(HomePage);
+  let content = h(HomePage, { focusServices: route.params.focus === "services" });
   if (route.page === "book") content = h(BookingPage, { selectedService: route.params.service });
   if (route.page === "gallery") content = h(GalleryPage);
-  if (route.page === "about") content = h(WhyUsPage);
+  if (route.page === "about") content = h(AboutPage);
+  if (route.page === "faq" || route.page === "faqs") content = h(FAQPage);
   if (route.page === "addons") content = h(AddonsPage);
   if (route.page === "products") content = h(ProductsPage);
   if (route.page === "why-us") content = h(WhyUsPage);
