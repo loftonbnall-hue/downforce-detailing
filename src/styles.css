@@ -707,11 +707,65 @@ textarea {
     linear-gradient(135deg, rgba(3, 24, 58, 0.95), rgba(8, 38, 86, 0.92)) border-box;
 }
 
+.nav-tab-membership::before {
+  background: linear-gradient(90deg, rgba(44, 129, 255, 0.96), rgba(32, 244, 255, 0.82) 48%, rgba(255, 138, 42, 0.9));
+}
+
 .nav-tab-active {
   background:
     linear-gradient(135deg, rgba(7, 15, 27, 0.92), rgba(15, 21, 28, 0.82)) padding-box,
     linear-gradient(135deg, rgba(3, 24, 58, 0.95), rgba(8, 38, 86, 0.92)) border-box;
   color: #fff;
+}
+
+.btn-primary-skew {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 0;
+  background:
+    linear-gradient(135deg, rgba(32, 244, 255, 0.95), rgba(32, 244, 255, 0.82)) padding-box,
+    linear-gradient(135deg, rgba(32, 244, 255, 0.82), rgba(255, 138, 42, 0.5)) border-box;
+  clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  color: #05070b;
+  transform: skewX(-10deg);
+  transition: color 180ms ease, box-shadow 180ms ease, filter 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.btn-primary-skew::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background: linear-gradient(110deg, #9ffcff, #20f4ff 42%, #11d7b2 100%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.btn-primary-skew-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: skewX(10deg);
+}
+
+.btn-primary-skew:hover,
+.btn-primary-skew:focus-visible {
+  background:
+    linear-gradient(110deg, #9ffcff, #20f4ff 42%, #11d7b2 100%) padding-box,
+    linear-gradient(135deg, rgba(32, 244, 255, 0.9), rgba(17, 215, 178, 0.92)) border-box;
+  color: #04101a;
+  filter: saturate(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 0 26px rgba(32, 244, 255, 0.24),
+    0 0 18px rgba(17, 215, 178, 0.16);
+  transform: skewX(-10deg) translateY(-1px);
+}
+
+.btn-primary-skew:hover::before,
+.btn-primary-skew:focus-visible::before {
+  opacity: 1;
 }
 
 .steampunk-menu {

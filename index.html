@@ -478,16 +478,18 @@ function GlitchText({ text, size = "hero", intensity = 1, animated = true, class
 
 function Button({ children, onClick, variant = "primary" }) {
   const style =
-    variant === "primary"
+    variant === "hero"
+      ? "btn-primary-skew border-cyanedge/70 bg-cyanedge text-asphalt shadow-glow"
+      : variant === "primary"
       ? "border-cyanedge/70 bg-cyanedge text-asphalt shadow-glow hover:bg-white"
       : "border-raceorange/70 bg-white/5 text-white shadow-orange hover:border-cyanedge hover:text-cyanedge";
   return h(
     "button",
     {
       onClick,
-      className: `rounded-full border px-6 py-3 text-sm font-black uppercase tracking-[0.16em] transition ${style}`
+      className: `border px-6 py-3 text-sm font-black uppercase tracking-[0.16em] transition ${variant === "hero" ? "" : "rounded-full"} ${style}`
     },
-    children
+    variant === "hero" ? h("span", { className: "btn-primary-skew-label" }, children) : children
   );
 }
 
@@ -631,11 +633,6 @@ function NavLinks({ page, className }) {
   }, [page]);
 
   return h("nav", { className },
-    h("button", {
-      type: "button",
-      onClick: () => go("home"),
-      className: `nav-tab ${page === "home" ? "nav-tab-active" : ""}`
-    }, "Home"),
     h("div", { className: "relative shrink-0" },
       h("button", {
         type: "button",
@@ -735,7 +732,7 @@ function Hero() {
           h(
             "div",
             { className: "mt-9 flex flex-col gap-4 sm:flex-row" },
-            h(Button, { onClick: () => goToServices() }, "Book an Appointment"),
+            h(Button, { onClick: () => goToServices(), variant: "hero" }, "Book an Appointment"),
             h(Button, { onClick: () => goTo("gallery"), variant: "secondary" }, "View Gallery")
           )
         )
